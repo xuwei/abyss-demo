@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Footer from './common/Footer'
 import NavBar from './common/NavBar'
 import HomePage from './page/HomePage'
+import AppDialog from './AppDialog'
 
 function App() {
 
