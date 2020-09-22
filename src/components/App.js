@@ -21,6 +21,7 @@ function App() {
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <CssBaseline />
+      <AppDialog>
       <Router>
         <div className="App">
           <NavBar />
@@ -30,6 +31,7 @@ function App() {
           <Footer />
         </div>
       </Router>
+      </AppDialog>
     </MuiThemeProvider>
   )
 }
