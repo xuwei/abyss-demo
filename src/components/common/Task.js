@@ -19,7 +19,7 @@ function Task(props) {
                         <Typography variant="h4" color="primary">{model.descriptions}</Typography>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.toggleEdit}><EditIcon/></IconButton>
+                        <IconButton onClick={props.startEdit}><EditIcon/></IconButton>
                     </Box>
                     <Box p={1}>
                         <IconButton onClick={props.doneTask}><DoneIcon/></IconButton>
@@ -36,10 +36,10 @@ function Task(props) {
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
                     <Box p={1}>
-                        <Typography variant="h4" color="primary">{model.descriptions}</Typography>
+                        <TextField defaultValue={model.descriptions} />
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.toggleEdit}><EditIcon/></IconButton>
+                        <IconButton onClick={props.endEdit}><EditIcon/></IconButton>
                     </Box>
                     <Box p={1}>
                         <IconButton disabled={true} onClick={props.doneTask}><DoneIcon/></IconButton>
@@ -64,7 +64,7 @@ function Task(props) {
                 </Box>
             )
         default:
-            return(<div>test</div>)
+            return(<div>invalid state</div>)
     }
 }
 

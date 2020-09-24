@@ -10,21 +10,24 @@ function HomePage() {
     const [tasks, setTasks] = useState([])
     const newTaskInput = useRef(null)
 
-    const checkEvent = (id) => {
-        // handle check box event 
-        alert(id)
+    const startEdit = (id) => {
+        updateState(id, StateOfTask.Edit)
     }
 
-    const toggleEdit = (id) => {
-        alert(id)
+    const endEdit = (e) => {
+        debugger;
     }
 
     const doneTask = (id) => {
+        updateState(id, StateOfTask.Done)
+    }
+
+    const updateState = (id, state) => {
         var currentList = [...tasks]
         for (var i = 0; i < currentList.length; i++) {
             var task = currentList[i]
             if (task.id === id) {
-                task.state = StateOfTask.Done 
+                task.state = state
             }
             currentList[i] = task
         }
@@ -60,7 +63,12 @@ function HomePage() {
                 <Paper>
                     <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
                          {tasks.map((taskModel) => (
-                            <Task model={taskModel} doneTask={()=>{ doneTask(taskModel.id)}} toggleEdit={()=>{toggleEdit(taskModel.id)}} removeTask={()=>{removeTask(taskModel.id)}}/>
+                            <Task model={taskModel} 
+                                doneTask={()=>{ doneTask(taskModel.id)}} 
+                                startEdit={()=>{ startEdit(taskModel.id)}}
+                                endEdit={endEdit} 
+                                removeTask={()=>{removeTask(taskModel.id)}}
+                            />
                          ))}
                     </Box>
                 </Paper>
