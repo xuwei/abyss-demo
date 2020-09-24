@@ -14,8 +14,8 @@ function HomePage() {
         updateState(id, StateOfTask.Edit)
     }
 
-    const endEdit = (e) => {
-        debugger;
+    const endEdit = (id) => {
+        updateState(id, StateOfTask.Pending)
     }
 
     const doneTask = (id) => {
@@ -66,7 +66,7 @@ function HomePage() {
                             <Task model={taskModel} 
                                 doneTask={()=>{ doneTask(taskModel.id)}} 
                                 startEdit={()=>{ startEdit(taskModel.id)}}
-                                endEdit={endEdit} 
+                                endEdit={()=>{ endEdit(taskModel.id)}} 
                                 removeTask={()=>{removeTask(taskModel.id)}}
                             />
                          ))}
