@@ -1,5 +1,5 @@
 import { Checkbox, Box, Typography, TextField } from '@material-ui/core'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StateOfTask } from '../model/TaskModel'
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
@@ -7,7 +7,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { IconButton } from '@material-ui/core';
 
 function Task(props) {
+
     const model = props.model
+    const [desc, setDesc] = useState(model.descriptions);
+    
+    const handleTextChange = e => {
+        setDesc(e.target.value);
+    }
+
+    useEffect(() => {
+    }, [])
+   
     switch(model.state) {
         case StateOfTask.Pending:
             return(
@@ -36,10 +46,10 @@ function Task(props) {
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
                     <Box p={1}>
-                        <TextField defaultValue={model.descriptions} />
+                        <TextField defaultValue={model.descriptions} onChange={handleTextChange}/>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.endEdit}><EditIcon/></IconButton>
+                        <IconButton onClick={() => props.endEdit(model.id, desc)}><EditIcon/></IconButton>
                     </Box>
                     <Box p={1}>
                         <IconButton disabled={true} onClick={props.doneTask}><DoneIcon/></IconButton>

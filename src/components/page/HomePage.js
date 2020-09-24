@@ -9,12 +9,23 @@ function HomePage() {
 
     const [tasks, setTasks] = useState([])
     const newTaskInput = useRef(null)
-
     const startEdit = (id) => {
         updateState(id, StateOfTask.Edit)
     }
 
-    const endEdit = (id) => {
+    const endEdit = (id, description) => {
+
+        debugger;
+        var currentList = [...tasks]
+        for (var i = 0; i < currentList.length; i++) {
+            var task = currentList[i]
+            if (task.id === id) {
+                task.description = description
+            }
+            currentList[i] = task
+        }
+        setTasks(currentList)
+        
         updateState(id, StateOfTask.Pending)
     }
 
@@ -66,7 +77,7 @@ function HomePage() {
                             <Task model={taskModel} 
                                 doneTask={()=>{ doneTask(taskModel.id)}} 
                                 startEdit={()=>{ startEdit(taskModel.id)}}
-                                endEdit={()=>{ endEdit(taskModel.id)}} 
+                                endEdit={endEdit} 
                                 removeTask={()=>{removeTask(taskModel.id)}}
                             />
                          ))}
