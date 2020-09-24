@@ -2,9 +2,6 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
 import { LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
-import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import uuid from 'react-uuid'
 import Task from '../common/Task'
 
@@ -15,6 +12,28 @@ function HomePage() {
 
     const checkEvent = (id) => {
         // handle check box event 
+        alert(id)
+    }
+
+    const toggleEdit = (id) => {
+        alert(id)
+    }
+
+    const doneTask = (id) => {
+        var currentList = [...tasks]
+        for (var i = 0; i < currentList.length; i++) {
+            var task = currentList[i]
+            if (task.id === id) {
+                task.state = StateOfTask.Done 
+            }
+            currentList[i] = task
+        }
+        setTasks(currentList)
+    }
+
+    const removeTask = (id) => {
+        const newList = tasks.filter((task)=> task.id !== id)
+        setTasks(newList)
     }
 
     const addNewTask = (e) => { 
@@ -23,7 +42,7 @@ function HomePage() {
         const list = tasks.slice()
         list.push(taskModel)
         setTasks(list)
-        debugger;
+        newTaskInput.current.value = ""
     }
 
     // this triggers refresh when shapes is updated
@@ -41,16 +60,16 @@ function HomePage() {
                 <Paper>
                     <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
                          {tasks.map((taskModel) => (
-                            <Task model={taskModel}/>
+                            <Task model={taskModel} doneTask={()=>{ doneTask(taskModel.id)}} toggleEdit={()=>{toggleEdit(taskModel.id)}} removeTask={()=>{removeTask(taskModel.id)}}/>
                          ))}
                     </Box>
                 </Paper>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                <TextareaAutosize ref={newTaskInput} aria-label="minimum height" rowsMin={3} placeholder="Enter new task" style={{"width": "50%", "textAlign" : "center", "backgroundColor" : "black", "color" : "white"}} />
+                <TextareaAutosize ref={newTaskInput} rowsMin={3} placeholder="Enter new task" style={{"width": "50%", "textAlign" : "center", "backgroundColor" : "black", "color" : "white"}} />
             </Box>
             <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                <Button variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
+                <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
             </Box>
         </Container>
     )
