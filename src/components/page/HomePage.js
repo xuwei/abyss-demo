@@ -13,20 +13,18 @@ function HomePage() {
         updateState(id, StateOfTask.Edit)
     }
 
-    const endEdit = (id, description) => {
+    const endEdit = (id, descriptions) => {
 
-        debugger;
         var currentList = [...tasks]
         for (var i = 0; i < currentList.length; i++) {
             var task = currentList[i]
             if (task.id === id) {
-                task.description = description
+                task.descriptions = descriptions
+                task.state = StateOfTask.Pending
             }
             currentList[i] = task
         }
         setTasks(currentList)
-        
-        updateState(id, StateOfTask.Pending)
     }
 
     const doneTask = (id) => {
