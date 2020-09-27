@@ -5,6 +5,7 @@ import TaskModel, { StateOfTask } from '../model/TaskModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
 
+// home page for todo list
 function HomePage() {
 
     const [tasks, setTasks] = useState([])
