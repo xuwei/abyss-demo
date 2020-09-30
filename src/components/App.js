@@ -6,6 +6,7 @@ import Footer from './common/Footer'
 import NavBar from './common/NavBar'
 import HomePage from './page/HomePage'
 import AppDialog from './AppDialog'
+import Auth from './Auth'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <CssBaseline />
+      <Auth>
       <AppDialog>
       <Router>
         <div className="App">
@@ -33,6 +35,7 @@ function App() {
         </div>
       </Router>
       </AppDialog>
+      </Auth>
     </MuiThemeProvider>
   )
 }
