@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
+import { userContext } from '../context/UserContext'
 import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
+import LoginPanel from '../common/LoginPanel'
 import { LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
 import uuid from 'react-uuid'
@@ -8,6 +10,7 @@ import Task from '../common/Task'
 // home page for todo list
 function HomePage() {
 
+    const userManager = useContext(userContext)
     const [tasks, setTasks] = useState([])
     const newTaskInput = useRef(null)
     const startEdit = (id) => {
@@ -64,30 +67,43 @@ function HomePage() {
 
     return (
         <Container>
-            <Box flexGrow={1} align="center" py={LargePadding.PY}>
-                <Typography variant="h2" color="primary" mx="auto" >
-                    Abyss TodoList
-                </Typography>
+            <Box flexGrow={1} align="center" py={StandardPadding.PY}>
+            <userContext.Consumer>
+            {(userManager) => (
+             userManager.user ?
+             <Box>
+                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                    <Typography variant="h2" color="primary" mx="auto" >
+                        Abyss TodoList
+                    </Typography>
+                </Box>
+                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                    <Paper>
+                        <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
+                            {tasks.map((taskModel) => (
+                                <Task model={taskModel} 
+                                    doneTask={()=>{ doneTask(taskModel.id)}} 
+                                    startEdit={()=>{ startEdit(taskModel.id)}}
+                                    endEdit={endEdit} 
+                                    removeTask={()=>{removeTask(taskModel.id)}}
+                                />
+                            ))}
+                        </Box>
+                    </Paper>
+                </Box>
+                <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
+                    <TextareaAutosize ref={newTaskInput} rowsMin={3} placeholder="Enter new task" style={{"width": "50%", "textAlign" : "center", "backgroundColor" : "black", "color" : "white"}} />
+                </Box>
+                <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
+                    <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
+                </Box>
             </Box>
-            <Box flexGrow={1} align="center" py={LargePadding.PY}>
-                <Paper>
-                    <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                         {tasks.map((taskModel) => (
-                            <Task model={taskModel} 
-                                doneTask={()=>{ doneTask(taskModel.id)}} 
-                                startEdit={()=>{ startEdit(taskModel.id)}}
-                                endEdit={endEdit} 
-                                removeTask={()=>{removeTask(taskModel.id)}}
-                            />
-                         ))}
-                    </Box>
-                </Paper>
+            :
+            <Box>
+                <LoginPanel title={"Please sign in to start accessing your Todo list manager"} />
             </Box>
-            <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                <TextareaAutosize ref={newTaskInput} rowsMin={3} placeholder="Enter new task" style={{"width": "50%", "textAlign" : "center", "backgroundColor" : "black", "color" : "white"}} />
-            </Box>
-            <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
+            )}
+            </userContext.Consumer>
             </Box>
         </Container>
     )
