@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { userContext } from '../context/UserContext'
 import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
@@ -9,8 +9,6 @@ import Task from '../common/Task'
 
 // home page for todo list
 function HomePage() {
-
-    const userManager = useContext(userContext)
     const [tasks, setTasks] = useState([])
     const newTaskInput = useRef(null)
     const startEdit = (id) => {
@@ -104,7 +102,7 @@ function HomePage() {
             </Box>
             )}
             </userContext.Consumer>
-            </Box>
+            </Box>  
         </Container>
     )
 }
