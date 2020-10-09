@@ -87,7 +87,7 @@ function HomePage() {
     }, [setTasks])
 
     const textAreaStyle = {
-        "width": "50%",
+        "width": "100%",
         "textAlign" : "center",
         "backgroundColor" : "black",
         "color" : "white",
