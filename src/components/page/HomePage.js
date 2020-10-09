@@ -1,14 +1,14 @@
 import React, { useContext, useState, useRef, useEffect } from 'react'
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
-import { Grid, Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
 import { LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
 import DialogModel from '../model/DialogModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
-import { getUserTasks, saveUserTasks } from '../util/TaskUtil'
+import TaskUtil from '../util/TaskUtil'
 
 // home page for todo list
 function HomePage() {
@@ -79,8 +79,28 @@ function HomePage() {
     }
 
     const storeTasks = () => {
-        console.log("save state");
+        const user = userManager.user
+        const tasksToStore = tasks
+        TaskUtil.saveUserTasks(user.uid, tasksToStore).then(()=> {
+            const dialog = new DialogModel("Message", "Successfully Saved !", "Ok")
+            dialog.callback = ()=> { console.log("") }
+            dialogManager.updateDialogMsg(dialog)
+        }).catch((error)=> {
+            const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
+            dialog.callback = ()=> { console.log("") }
+            dialogManager.updateDialogMsg(dialog)
+        })
     }
+
+    useEffect(() => {
+        if (userManager.user === null) return
+        TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
+            setTasks(result)
+        }).catch((error) => {
+            // redirect to error page
+            console.log(error)
+        })
+    }, [userManager])
 
     // this triggers refresh when shapes is updated
     useEffect(() => {
@@ -91,7 +111,7 @@ function HomePage() {
         "textAlign" : "center",
         "backgroundColor" : "black",
         "color" : "white",
-        "word-wrap" : "break-word"
+        "wrap" : "hard"
     }
 
     return (
@@ -108,18 +128,14 @@ function HomePage() {
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
-                        <Grid container wrap="nowrap" spacing={2}>
-                            {tasks.map((taskModel) => (
-                                <Grid item>
-                                <Task model={taskModel} 
-                                    doneTask={()=>{ doneTask(taskModel.id)}} 
-                                    startEdit={()=>{ startEdit(taskModel.id)}}
-                                    endEdit={endEdit} 
-                                    removeTask={()=>{removeTask(taskModel.id)}}
-                                />
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {tasks.map((taskModel) => (
+                            <Task key={taskModel.id} model={taskModel} 
+                                doneTask={()=>{ doneTask(taskModel.id)}} 
+                                startEdit={()=>{ startEdit(taskModel.id)}}
+                                endEdit={endEdit} 
+                                removeTask={()=>{removeTask(taskModel.id)}}
+                            />
+                        ))}
                     </Paper>
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
