@@ -21,40 +21,40 @@ function Task(props) {
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box display="flex" flexDirection="row" p={1} m={1}>
-                    <Box p={1}>
+                <Box display="flex" flexDirection="row">
+                    <Box>
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
-                    <Box p={1}>
-                        <Typography variant="h4" color="primary">{model.descriptions}</Typography>
+                    <Box>
+                        <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton onClick={props.startEdit}><EditIcon/></IconButton>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton onClick={props.removeTask}><DeleteIcon/></IconButton>
                     </Box>
                 </Box>
             )
         case StateOfTask.Edit:
             return(
-                <Box display="flex" flexDirection="row" p={1} m={1}>
-                    <Box p={1}>
+                <Box display="flex" flexDirection="row">
+                    <Box>
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <TextField defaultValue={model.descriptions} onChange={handleTextChange}/>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton onClick={() => props.endEdit(model.id, desc)}><EditIcon/></IconButton>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton disabled={true} onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
-                    <Box p={1}>
+                    <Box>
                         <IconButton disabled={true} onClick={props.removeTask}><DeleteIcon/></IconButton>
                     </Box>
                 </Box>

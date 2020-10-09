@@ -53,7 +53,7 @@ function NavBar() {
                 </Box>
                 <Box flexGrow={1} px={2}>
                     <Typography variant="h6">
-                        Abyss Todo
+                        Todo List
                     </Typography>
                 </Box>
                 { 
