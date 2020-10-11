@@ -1,160 +1,117 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
-import { userContext } from '../context/UserContext'
-import { dialogContext } from '../context/DialogContext'
-import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
-import LoginPanel from '../common/LoginPanel'
-import { LargePadding, StandardPadding, ContentWidth } from '../Configs'
-import TaskModel, { StateOfTask } from '../model/TaskModel'
-import DialogModel from '../model/DialogModel'
-import uuid from 'react-uuid'
-import Task from '../common/Task'
-import TaskUtil from '../util/TaskUtil'
+import React from 'react'
+import { Link, Hidden, Grid, Button, Paper, Typography, Box, Container } from '@material-ui/core'
+import { StaticImages, StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 
-// home page for todo list
+// home page
 function HomePage() {
     
-    const [tasks, setTasks] = useState([])
-    const userManager = useContext(userContext)
-    const dialogManager = useContext(dialogContext)
-
-    const newTaskInput = useRef(null)
-    const startEdit = (id) => {
-        updateState(id, StateOfTask.Edit)
-    }
-
-    const endEdit = (id, descriptions) => {
-
-        var currentList = [...tasks]
-        for (var i = 0; i < currentList.length; i++) {
-            var task = currentList[i]
-            if (task.id === id) {
-                task.descriptions = descriptions
-                task.state = StateOfTask.Pending
-            }
-            currentList[i] = task
-        }
-        setTasks(currentList)
-    }
-
-    const doneTask = (id) => {
-        updateState(id, StateOfTask.Done)
-    }
-
-    const updateState = (id, state) => {
-        var currentList = [...tasks]
-        for (var i = 0; i < currentList.length; i++) {
-            var task = currentList[i]
-            if (task.id === id) {
-                task.state = state
-            }
-            currentList[i] = task
-        }
-        setTasks(currentList)
-    }
-
-    const removeTask = (id) => {
-        const newList = tasks.filter((task)=> task.id !== id)
-        setTasks(newList)
-    }
-
-    const addNewTask = (e) => { 
-        const newTaskDescriptions = newTaskInput.current.value.trim()
-        const validationErrorMsg = validateEntry(newTaskDescriptions)
-        if (validationErrorMsg.length !== 0) { 
-            const dialog = new DialogModel("Message", validationErrorMsg, "Ok")
-            dialog.callback = ()=> { console.log("") }
-            dialogManager.updateDialogMsg(dialog)
-            return
-         }
-        const taskModel = new TaskModel(uuid(), newTaskDescriptions, StateOfTask.Pending, "", "", new Date())
-        const list = tasks.slice()
-        list.push(taskModel)
-        setTasks(list)
-        newTaskInput.current.value = ""
-    }
-    const validateEntry = (descriptions) => {
-        if (descriptions.length === 0) { return "Empty entry is not allowed." }
-        if(/^[a-zA-Z0-9- ,_.://@]*$/.test(descriptions) === false) { return "Only basic alphabets, numbers and basic punctuation characters are allowed." }
-        return ""
-    }
-
-    const storeTasks = () => {
-        const user = userManager.user
-        const tasksToStore = tasks
-        TaskUtil.saveUserTasks(user.uid, tasksToStore).then(()=> {
-            const dialog = new DialogModel("Message", "Successfully Saved !", "Ok")
-            dialog.callback = ()=> { console.log("") }
-            dialogManager.updateDialogMsg(dialog)
-        }).catch((error)=> {
-            const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
-            dialog.callback = ()=> { console.log("") }
-            dialogManager.updateDialogMsg(dialog)
-        })
-    }
-
-    useEffect(() => {
-        if (userManager.user === null) return
-        TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
-            setTasks(result)
-        }).catch((error) => {
-            // redirect to error page
-            console.log(error)
-        })
-    }, [userManager])
-
-    // this triggers refresh when shapes is updated
-    useEffect(() => {
-    }, [setTasks])
-
-    const textAreaStyle = {
-        "width": "100%",
-        "textAlign" : "center",
-        "backgroundColor" : "black",
-        "color" : "white",
-        "wrap" : "hard"
-    }
-
     return (
         <Container>
-            <Box flexGrow={1} align="center" py={StandardPadding.PY}>
-            <userContext.Consumer>
-            {(userManager) => (
-             userManager.user ?
-             <Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Typography variant="h2" color="primary" mx="auto" >
-                        My Todo List
+                        Manage your todo list in the cloud
                     </Typography>
-                </Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY}>
-                    <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
-                        {tasks.map((taskModel) => (
-                            <Task key={taskModel.id} model={taskModel} 
-                                doneTask={()=>{ doneTask(taskModel.id)}} 
-                                startEdit={()=>{ startEdit(taskModel.id)}}
-                                endEdit={endEdit} 
-                                removeTask={()=>{removeTask(taskModel.id)}}
-                            />
-                        ))}
-                    </Paper>
-                </Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <TextareaAutosize ref={newTaskInput} rowsMin={3} placeholder="Enter new task" style={textAreaStyle} />
-                </Box>
-                <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
-                </Box>
-                <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <Button size="large" variant="outlined" color="primary" onClick={storeTasks}>Save</Button>
-                </Box>
+                    <Typography variant="h5" color="textPrimary" mx="auto">
+                        Minimise overhead of managing tasks<br/>
+                        Simple, practical design<br/>
+                    </Typography>
+                    <Box py={LargePadding.PY}>
+                        <Button size="large" href={StaticRoutes.TODO} variant="contained" color="primary" my={4}>Get started</Button>
+                    </Box>
+                </Grid>
             </Box>
-            :
-            <Box>
-                <LoginPanel title={"Please sign in to start accessing your Todo list manager"} />
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Grid container direction="row" justity="center" alignItems="flex-start" spacing={1}>
+                    <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} pt={LargePadding.PY}>
+                                <Hidden mdUp>
+                                    <img src={StaticImages.screenshot01} alt="todo cloud" />
+                                </Hidden>
+                            </Box>
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    Easy to use. Leverage on state of art platform. Encrypted storage
+                                </Typography>
+                                <Typography variant="h6">
+                                    <Link href={StaticRoutes.TODO} color="primary">
+                                        Try it now
+                                    </Link>
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                        <Box px={StandardPadding.PX} py={StandardPadding.PY}>
+                            <Hidden smDown>
+                                <img src={StaticImages.screenshot01} alt="image1" />
+                            </Hidden>
+                        </Box>
+                    </Grid>
+                </Grid>
             </Box>
-            )}
-            </userContext.Consumer>
-            </Box>  
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Grid container direction="row" justity="center" alignItems="flex-start" spacing={1}>
+                    <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                        <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                            <Hidden smDown>
+                                <img src={StaticImages.screenshot02} alt="todo cloud" />
+                            </Hidden>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} pt={LargePadding.PY}>
+                                <Hidden mdUp>
+                                    <img src={StaticImages.screenshot02} alt="todo cloud" />
+                                </Hidden>
+                            </Box>
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    Say good bye to overly complicated UI/UX for task management tools.
+                                </Typography>
+                                <Typography variant="h6">
+                                    <Link href={StaticRoutes.TODO} color="primary">
+                                        Try it now
+                                    </Link>
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Box>
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Typography variant="h5">
+                    Zero friction to your productivity with intuitive design and features.
+                </Typography>
+            </Box>
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                    <Typography variant="h2" color="primary">
+                        Features
+                        </Typography>
+                    <Box py={LargePadding.PY}>
+                        <Paper variant="outlined">
+                            <Box py={LargePadding.PY}>
+                                <Typography variant="h6">Built with Scalability</Typography>
+                            </Box>
+                            <Box pb={LargePadding.PY}>
+                                <Typography variant="h6">Customisable to your flavor</Typography>
+                            </Box>
+                            <Box pb={LargePadding.PY}>
+                                <Typography variant="h6">Zero learning curve</Typography>
+                            </Box>
+                            <Box pb={LargePadding.PY}>
+                                <Typography variant="h6">Automatically encrypt your stored data</Typography>
+                            </Box>
+                        </Paper>
+                    </Box>
+                    <Box py={LargePadding.PY}>
+                        <Button size="large" href={StaticRoutes.TODO} variant="contained" color="primary" my={StandardPadding.PY}>Get started</Button>
+                    </Box>
+                </Grid>
+            </Box>
         </Container>
     )
 }

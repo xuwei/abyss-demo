@@ -5,6 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Footer from './common/Footer'
 import NavBar from './common/NavBar'
 import HomePage from './page/HomePage'
+import TeamPage from './page/TeamPage'
+import TodoPage from './page/TodoPage'
+import NotFoundPage from './page/NotFoundPage'
 import AppDialog from './AppDialog'
 import Auth from './Auth'
 
@@ -30,6 +33,10 @@ function App() {
           <NavBar />
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/todo" component={TodoPage} />
+            <Route exact path="/team" component={TeamPage} />
+            <Route exact path="/404" component={NotFoundPage}/>
+            <Route component={NotFoundPage} />
           </Switch>
           <Footer />
         </div>

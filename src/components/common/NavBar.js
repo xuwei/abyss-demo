@@ -49,6 +49,16 @@ function NavBar() {
                                 Home
                             </Link>
                         </MenuItem>
+                        <MenuItem onClick={handleMenuDismiss}>
+                            <Link href="/todo" color="textPrimary">
+                                Todo
+                            </Link>
+                        </MenuItem>
+                        {/* <MenuItem onClick={handleMenuDismiss}>
+                            <Link href="/team" color="textPrimary">
+                                Team
+                            </Link>
+                        </MenuItem> */}
                     </Menu>
                 </Box>
                 <Box flexGrow={1} px={2}>
