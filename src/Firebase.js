@@ -7,7 +7,7 @@ import 'firebase/analytics';
 
 const config = {
     apiKey: "AIzaSyArN-O1jDSIl833oCWgtYHMIQPPRw6-518",
-    authDomain: "todocloud.io",
+    authDomain: "abyss-todo.firebaseapp.com",
     databaseURL: "https://abyss-todo.firebaseio.com",
     projectId: "abyss-todo",
     storageBucket: "abyss-todo.appspot.com",
