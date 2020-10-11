@@ -9,7 +9,10 @@ const StaticRoutes = {
     HOME: '/',
     TODO: '/todo',
     TEAM: '/team',
-    NOT_FOUND: '/404'
+    PRIVACY: '/privacy',
+    TERMS: '/terms',
+    NOT_FOUND: '/404',
+    CONTACT_EMAIL: 'mailto:support@wisetreeapps.com'
 }
 
 const StandardPadding = {
