@@ -27,7 +27,7 @@ function HomePage() {
                         <Paper variant="outlined">
                             <Box px={StandardPadding.PX} pt={LargePadding.PY}>
                                 <Hidden mdUp>
-                                    <img src={StaticImages.screenshot01} alt="todo cloud" />
+                                    <img width="100%" src={StaticImages.screenshot01} alt="todo cloud" />
                                 </Hidden>
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
@@ -43,7 +43,7 @@ function HomePage() {
                         </Paper>
                     </Grid>
                     <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
-                        <Box px={StandardPadding.PX} py={StandardPadding.PY}>
+                        <Box style={{overflow: "hidden"}} px={StandardPadding.PX} py={StandardPadding.PY}>
                             <Hidden smDown>
                                 <img src={StaticImages.screenshot01} alt="image1" />
                             </Hidden>
@@ -64,7 +64,7 @@ function HomePage() {
                         <Paper variant="outlined">
                             <Box px={StandardPadding.PX} pt={LargePadding.PY}>
                                 <Hidden mdUp>
-                                    <img src={StaticImages.screenshot02} alt="todo cloud" />
+                                    <img width="100%" src={StaticImages.screenshot02} alt="todo cloud" />
                                 </Hidden>
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
