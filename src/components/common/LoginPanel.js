@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react'
-import { Hidden, Paper, Box, Typography, Button } from '@material-ui/core'
+import { Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
 import UserUtil from '../util/UserUtil'
 import MessageUtil from '../util/MessageUtil'
@@ -25,12 +25,7 @@ function LoginPanel(props) {
                     {props.title}
                 </Typography>
                 <Box px={4} py={4}>
-                    <Hidden smDown>
-                        <GoogleButton type="light" onClick={login} />
-                    </Hidden>
-                    <Hidden mdUp>
-                        <Button variant="contained" color="primary" onClick={login}>Sign In</Button>
-                    </Hidden>
+                    <GoogleButton type="dark" onClick={login} />
                 </Box>
             </Box>
         </Paper>
