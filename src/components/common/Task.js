@@ -70,7 +70,7 @@ function Task(props) {
                         <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                     </Box>
                     <Box p={1}>
-                        <IconButton disabled={true} onClick={props.undoTask}><UndoIcon/></IconButton>
+                        <IconButton onClick={props.undoTask}><UndoIcon/></IconButton>
                     </Box>
                     <Box p={1}>
                         <IconButton onClick={props.removeTask}><ArchiveIcon/></IconButton>
