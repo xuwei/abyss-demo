@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react'
-import { Hidden, Paper, Box, Typography } from '@material-ui/core'
+import { Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
 import UserUtil from '../util/UserUtil'
 import MessageUtil from '../util/MessageUtil'
