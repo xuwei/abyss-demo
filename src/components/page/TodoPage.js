@@ -38,6 +38,10 @@ function TodoPage() {
         setTasks(currentList)
     }
 
+    const undoTask = (id) => {
+        updateState(id, StateOfTask.Pending)
+    }
+
     const doneTask = (id) => {
         updateState(id, StateOfTask.Done)
     }
@@ -134,7 +138,8 @@ function TodoPage() {
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
                         {tasks.map((taskModel) => (
                             <Task key={taskModel.id} model={taskModel} 
-                                doneTask={()=>{ doneTask(taskModel.id)}} 
+                                doneTask={()=>{ doneTask(taskModel.id)}}
+                                undoTask={()=>{ undoTask(taskModel.id)}}
                                 startEdit={()=>{ startEdit(taskModel.id)}}
                                 endEdit={endEdit} 
                                 removeTask={()=>{removeTask(taskModel.id)}}

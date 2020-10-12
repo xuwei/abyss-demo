@@ -1,10 +1,11 @@
 import { Checkbox, Box, Typography, TextField } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import { StateOfTask } from '../model/TaskModel'
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { IconButton } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit'
+import DoneIcon from '@material-ui/icons/Done'
+import ArchiveIcon from '@material-ui/icons/Archive'
+import UndoIcon from '@material-ui/icons/Undo'
+import { IconButton } from '@material-ui/core'
 
 function Task(props) {
 
@@ -35,7 +36,7 @@ function Task(props) {
                         <IconButton onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.removeTask}><DeleteIcon/></IconButton>
+                        <IconButton onClick={props.removeTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )
@@ -55,7 +56,7 @@ function Task(props) {
                         <IconButton disabled={true} onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton disabled={true} onClick={props.removeTask}><DeleteIcon/></IconButton>
+                        <IconButton disabled={true} onClick={props.removeTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )
@@ -69,7 +70,10 @@ function Task(props) {
                         <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.removeTask}><DeleteIcon/></IconButton>
+                        <IconButton disabled={true} onClick={props.undoTask}><UndoIcon/></IconButton>
+                    </Box>
+                    <Box p={1}>
+                        <IconButton onClick={props.removeTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )
