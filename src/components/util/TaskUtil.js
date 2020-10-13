@@ -4,7 +4,6 @@ import TaskModel from '../model/TaskModel.js';
 const getUserTasks = (userId) => {
 
     return new Promise((resolve, reject) => {
-        debugger;
         if (userId === null) { reject(new Error("UserId cannot be null")) }
         if (userId.length === 0) { reject(new Error("UserId cannot be null")) }
         const db = firebase.firestore()
@@ -51,4 +50,36 @@ const saveUserTasks = (userId, tasks) => {
     })
 }
 
-export default { getUserTasks, saveUserTasks }
+const getArchiveUserTasks = (userId, dates) => {
+    // TODO     
+}
+
+const archiveUserTask = (userId, task) => {
+
+    return new Promise((resolve, reject) => {
+
+        if (userId === null) { reject(new Error("UserId cannot be null")) }
+        if (userId.length === 0) { reject(new Error("UserId cannot be null")) }
+        var taskId = task.id
+        var now = new Date()
+        var dateString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDay())
+        var archivedTask = {
+            
+            descriptions : task.descriptions,
+            posted : task.posted,
+            lastModified : new Date(),
+            createdBy : userId,
+            state : task.state,
+            assigned : task.assigned
+        }
+
+        const db = firebase.firestore()
+        db.collection("archives").doc(userId).collection(dateString).doc(taskId).set(archivedTask, { merge: true }).then(() => {
+            resolve()   
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export default { getUserTasks, saveUserTasks, getArchiveUserTasks, archiveUserTask }

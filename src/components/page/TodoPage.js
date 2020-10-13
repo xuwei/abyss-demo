@@ -62,11 +62,6 @@ function TodoPage() {
         setTasks(currentList)
     }
 
-    const archiveTask = (id) => {
-        const newList = tasks.filter((task)=> task.id !== id)
-        setTasks(newList)
-    }
-
     const addNewTask = (e) => { 
         const newTaskDescriptions = newTaskInput.current.value.trim()
         const validationErrorMsg = validateEntry(newTaskDescriptions)
@@ -91,6 +86,7 @@ function TodoPage() {
     const storeTasks = () => {
         const user = userManager.user
         const tasksToStore = tasks
+        setLoading(true)
         TaskUtil.saveUserTasks(user.uid, tasksToStore).then(()=> {
             const dialog = new DialogModel("Message", "Successfully Saved !", "Ok")
             dialog.callback = ()=> { console.log("") }
@@ -99,8 +95,29 @@ function TodoPage() {
             const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
             dialog.callback = ()=> { console.log("") }
             dialogManager.updateDialogMsg(dialog)
+        }).finally(()=>{
+            setLoading(false)
         })
     }
+
+    const archiveTask = (id) => {
+        
+        const user = userManager.user
+        const taskToArchive = tasks.find((task) => task.id === id)
+        setLoading(true)
+        const newList = tasks.filter((task)=> task.id !== id)
+        TaskUtil.saveUserTasks(user.uid, newList).then(()=>{
+            setTasks(newList)
+            return TaskUtil.archiveUserTask(user.uid, taskToArchive)
+        }).catch((error)=> {
+            const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
+            dialog.callback = ()=> { console.log("") }
+            dialogManager.updateDialogMsg(dialog)
+        }).finally(()=>{
+            setLoading(false)
+        })        
+    }
+
 
     useEffect(() => {
         const fetchData = () => {
