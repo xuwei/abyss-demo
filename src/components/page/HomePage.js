@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Redirect } from "react-router-dom"
 import { Link, Hidden, Grid, Button, Paper, Typography, Box, Container } from '@material-ui/core'
 import { StaticImages, StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
+import { userContext } from '../context/UserContext'
 
 // home page
 function HomePage() {
     
+    const userManager = useContext(userContext)
+
+    if (userManager.user !== null) return (<Redirect to={StaticRoutes.TODO}/>)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>

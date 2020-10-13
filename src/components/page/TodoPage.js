@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
+import { loadingContext } from '../context/LoadingContext'
 import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
@@ -15,7 +16,10 @@ import TaskUtil from '../util/TaskUtil'
 function TodoPage() {
     
     const [notFound, setNotFound] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [tasks, setTasks] = useState([])
+ 
+    const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
     const dialogManager = useContext(dialogContext)
 
@@ -58,7 +62,7 @@ function TodoPage() {
         setTasks(currentList)
     }
 
-    const removeTask = (id) => {
+    const archiveTask = (id) => {
         const newList = tasks.filter((task)=> task.id !== id)
         setTasks(newList)
     }
@@ -99,15 +103,25 @@ function TodoPage() {
     }
 
     useEffect(() => {
-        if (userManager.user === null) return
-        TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
-            setTasks(result)
-        }).catch((error) => {
-            // redirect to error page
-            console.log(error)
-            setNotFound(true)
-        })
-    }, [userManager, setNotFound])
+        const fetchData = () => {
+            if (userManager.user === null) return
+            
+            setLoading(true)
+            TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
+                setTasks(result)
+            }).catch((error) => {
+                // redirect to error page
+                console.log(error)
+                setNotFound(true)
+            }).finally(()=>{
+                setLoading(false)
+            })
+        }
+        fetchData()
+    }, [userManager, setLoading, setNotFound])
+
+    useEffect(()=> {
+    }, [loadingManager])
 
     // this triggers refresh when shapes is updated
     useEffect(() => {
@@ -122,6 +136,7 @@ function TodoPage() {
     }
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
+    loadingManager.updateLoadingIndicator(loading)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={StandardPadding.PY}>
@@ -142,7 +157,7 @@ function TodoPage() {
                                 undoTask={()=>{ undoTask(taskModel.id)}}
                                 startEdit={()=>{ startEdit(taskModel.id)}}
                                 endEdit={endEdit} 
-                                removeTask={()=>{removeTask(taskModel.id)}}
+                                archiveTask={()=>{archiveTask(taskModel.id)}}
                             />
                         ))}
                     </Paper>

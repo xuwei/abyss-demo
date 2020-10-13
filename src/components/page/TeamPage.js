@@ -54,7 +54,7 @@ function TeamPage() {
         setTasks(currentList)
     }
 
-    const removeTask = (id) => {
+    const archiveTask = (id) => {
         const newList = tasks.filter((task)=> task.id !== id)
         setTasks(newList)
     }
@@ -137,7 +137,7 @@ function TeamPage() {
                                 doneTask={()=>{ doneTask(taskModel.id)}} 
                                 startEdit={()=>{ startEdit(taskModel.id)}}
                                 endEdit={endEdit} 
-                                removeTask={()=>{removeTask(taskModel.id)}}
+                                archiveTask={()=>{archiveTask(taskModel.id)}}
                             />
                         ))}
                     </Paper>

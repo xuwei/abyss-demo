@@ -36,7 +36,7 @@ function Task(props) {
                         <IconButton onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.removeTask}><ArchiveIcon/></IconButton>
+                        <IconButton onClick={props.archiveTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )
@@ -56,7 +56,7 @@ function Task(props) {
                         <IconButton disabled={true} onClick={props.doneTask}><DoneIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton disabled={true} onClick={props.removeTask}><ArchiveIcon/></IconButton>
+                        <IconButton disabled={true} onClick={props.archiveTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )
@@ -73,7 +73,7 @@ function Task(props) {
                         <IconButton onClick={props.undoTask}><UndoIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.removeTask}><ArchiveIcon/></IconButton>
+                        <IconButton onClick={props.archiveTask}><ArchiveIcon/></IconButton>
                     </Box>
                 </Box>
             )

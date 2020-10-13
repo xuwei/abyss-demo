@@ -8,6 +8,7 @@ const StaticImages = {
 const StaticRoutes = {
     HOME: '/',
     TODO: '/todo',
+    ARCHIVE: '/archive',
     TEAM: '/team',
     PRIVACY: '/privacy',
     TERMS: '/terms',
