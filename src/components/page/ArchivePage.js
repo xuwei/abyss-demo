@@ -14,7 +14,7 @@ function ArchivePage() {
     // const [notFound, setNotFound] = useState(false)
     // const [loading, setLoading] = useState(false)
     // const [filter, setFilter] = useState(ArchiveFilter.LAST_7_DAYS)
-    const [archives, setArchives] = useState([])
+    const [archives] = useState([])
 
     // const loadingManager = useContext(loadingContext)
     // const userManager = useContext(userContext)
