@@ -1,5 +1,6 @@
-import firebase from '../../Firebase.js';
-import TaskModel from '../model/TaskModel.js';
+import firebase from '../../Firebase.js'
+import TaskModel from '../model/TaskModel.js'
+import DateUtil from '../util/DateUtil'
 
 const getUserTasks = (userId) => {
 
@@ -62,7 +63,7 @@ const archiveUserTask = (userId, task) => {
         if (userId.length === 0) { reject(new Error("UserId cannot be null")) }
         var taskId = task.id
         var now = new Date()
-        var dateString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDate())
+        var dateString = DateUtil.yyyyMMdd(now)
         var archivedTask = {
             
             descriptions : task.descriptions,
