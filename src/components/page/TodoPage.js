@@ -137,12 +137,25 @@ function TodoPage() {
         fetchData()
     }, [userManager, setLoading, setNotFound])
 
-    useEffect(()=> {
-    }, [loadingManager])
-
     // this triggers refresh when shapes is updated
     useEffect(() => {
-    }, [setTasks])
+        const save = () => {
+            if (userManager.user === null) return
+            if (tasks.length === 0) return
+
+            setLoading(true)
+            TaskUtil.saveUserTasks(userManager.user.uid, tasks).then(() => {
+                setLoading(false)
+            }).catch((error)=> {
+                setLoading(false)
+            })
+        }
+        save()
+    }, [tasks, userManager.user])
+
+    useEffect(() => {
+        loadingManager.updateLoadingIndicator(loading)
+    }, [loading, loadingManager])
 
     const textAreaStyle = {
         "width": "100%",
@@ -153,7 +166,6 @@ function TodoPage() {
     }
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
-    loadingManager.updateLoadingIndicator(loading)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={StandardPadding.PY}>
@@ -191,7 +203,7 @@ function TodoPage() {
             </Box>
             :
             <Box>
-                <LoginPanel title={"Please sign in to start accessing your Todo list manager"} />
+                <LoginPanel title={"Please sign in to start accessing your Todo Cloud"} />
             </Box>
             )}
             </userContext.Consumer>
