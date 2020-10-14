@@ -62,7 +62,7 @@ const archiveUserTask = (userId, task) => {
         if (userId.length === 0) { reject(new Error("UserId cannot be null")) }
         var taskId = task.id
         var now = new Date()
-        var dateString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDay())
+        var dateString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + (now.getDate())
         var archivedTask = {
             
             descriptions : task.descriptions,
