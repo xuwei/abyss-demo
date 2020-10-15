@@ -79,25 +79,8 @@ function TodoPage() {
     }
     const validateEntry = (descriptions) => {
         if (descriptions.length === 0) { return "Empty entry is not allowed." }
-        if(/^[a-zA-Z0-9- ,_.://@]*$/.test(descriptions) === false) { return "Only basic alphabets, numbers and basic punctuation characters are allowed." }
+        if(/^[^<>%{}]*$/.test(descriptions) === false) { return "Some special characters are not allowed." }
         return ""
-    }
-
-    const storeTasks = () => {
-        const user = userManager.user
-        const tasksToStore = tasks
-        setLoading(true)
-        TaskUtil.saveUserTasks(user.uid, tasksToStore).then(()=> {
-            const dialog = new DialogModel("Message", "Successfully Saved !", "Ok")
-            dialog.callback = ()=> { console.log("") }
-            dialogManager.updateDialogMsg(dialog)
-        }).catch((error)=> {
-            const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
-            dialog.callback = ()=> { console.log("") }
-            dialogManager.updateDialogMsg(dialog)
-        }).finally(()=>{
-            setLoading(false)
-        })
     }
 
     const archiveTask = (id) => {
@@ -196,9 +179,6 @@ function TodoPage() {
                 </Box>
                 <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
-                </Box>
-                <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <Button size="large" variant="outlined" color="primary" onClick={storeTasks}>Save</Button>
                 </Box>
             </Box>
             :
