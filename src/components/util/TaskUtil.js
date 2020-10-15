@@ -52,8 +52,8 @@ const saveUserTasks = (userId, tasks) => {
 }
 
 const getArchiveUserTasks = (userId, filter) => {
-    var now = new Date() 
-    var dates = []
+    // var now = new Date() 
+    // var dates = []
     
 }
 
