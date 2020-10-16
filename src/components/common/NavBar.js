@@ -74,17 +74,15 @@ function NavBar() {
                     </Typography>
                 </Box>
                 { 
-                    userManager.user ?
-                        <Box>
-                            <Typography variant="caption">
-                                {userManager.user.displayName}
-                            </Typography>
-                            <Button varianet="contained" onClick={logout}>
-                                Sign out
-                            </Button>
-                        </Box>
-                        :
-                        <Box/>
+                    userManager.user &&
+                    <Box>
+                        <Typography variant="caption">
+                            {userManager.user.displayName ? userManager.user.displayName : "Guest"}
+                        </Typography>
+                        <Button size="small" varianet="contained" onClick={logout}>
+                            Sign out
+                        </Button>
+                    </Box>
                 }
             </Toolbar>
             { loadingManager.loading ? <LinearProgress/> : <Box/> }

@@ -11,6 +11,20 @@ const subscribedPlan = ()=> {
     })    
 }
 
+const loginAnonymously = ()=> {
+    return new Promise((resolve, reject) => {
+        auth.signInAnonymously().then((result, error) => {
+            if (error) {
+                reject(error)
+                return
+            }
+            const loggedInUser = result.user
+            reactLocalStorage.setObject('user', loggedInUser)
+            resolve(loggedInUser)
+        })
+    })
+}
+
 const login = ()=> {
     return new Promise((resolve, reject) => {
         auth.signInWithPopup(provider).then((result, error) => {
@@ -18,8 +32,8 @@ const login = ()=> {
                 reject(error)
                 return
             }
-            const loggedInUser = result.user;
-            reactLocalStorage.setObject('user', loggedInUser);
+            const loggedInUser = result.user
+            reactLocalStorage.setObject('user', loggedInUser)
             resolve(loggedInUser)
         })
     })
@@ -28,6 +42,7 @@ const login = ()=> {
 const logout = ()=> {
     return new Promise((resolve) => {
         auth.signOut().then(()=>{
+            reactLocalStorage.remove('user')
             resolve()
         })
     })
@@ -50,8 +65,6 @@ const fetchUser = ()=> {
 
             if (user) {
                 reactLocalStorage.setObject('user', user);
-                console.log(user)
-                debugger
                 resolve(user)
             } else {
                 resolve(null)
@@ -60,4 +73,4 @@ const fetchUser = ()=> {
     })
 }
 
-export default { fetchUser, subscribedPlan,  login, logout }
+export default { fetchUser, subscribedPlan,  login, loginAnonymously, logout }
