@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
-// import { dialogContext } from '../context/DialogContext'
-// import { loadingContext } from '../context/LoadingContext'
+import { dialogContext } from '../context/DialogContext'
+import { loadingContext } from '../context/LoadingContext'
 import { Paper, Typography, Box, Container } from '@material-ui/core'
-import { LargePadding, StandardPadding, ContentWidth } from '../Configs'
+import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import LoginPanel from '../common/LoginPanel'
 import TaskArchive from '../common/TaskArchive'
-// import { ArchiveFilter } from '../model/TaskArchiveModel'
+import { ArchiveFilter } from '../model/TaskArchiveModel'
 
 // archive page
 function ArchivePage() {
 
-    // const [notFound, setNotFound] = useState(false)
-    // const [loading, setLoading] = useState(false)
-    // const [filter, setFilter] = useState(ArchiveFilter.LAST_7_DAYS)
+    const [notFound, setNotFound] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [filter, setFilter] = useState(ArchiveFilter.LAST_7_DAYS)
     const [archives] = useState([])
 
-    // const loadingManager = useContext(loadingContext)
-    // const userManager = useContext(userContext)
-    // const dialogManager = useContext(dialogContext)
+    const loadingManager = useContext(loadingContext)
+    const userManager = useContext(userContext)
+    const dialogManager = useContext(dialogContext)
 
     useEffect(() => {
     },[])
 
+    if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={StandardPadding.PY}>

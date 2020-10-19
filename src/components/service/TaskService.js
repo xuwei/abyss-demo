@@ -1,6 +1,7 @@
 import firebase from '../../Firebase.js'
 import TaskModel from '../model/TaskModel.js'
 import DateUtil from '../util/DateUtil'
+import TaskArchieveModel, { ArchiveFilter } from '../model/TaskArchiveModel'
 
 const getUserTasks = (userId) => {
 
@@ -52,8 +53,20 @@ const saveUserTasks = (userId, tasks) => {
 }
 
 const getArchiveUserTasks = (userId, filter) => {
-    // var now = new Date() 
-    // var dates = []
+    var dates = [] 
+    switch(filter) {
+        case ArchiveFilter.LAST_7_DAYS:
+            dates = DateUtil.last7days()
+            break
+        case ArchiveFilter.LAST_30_DAYS:
+            dates = DateUtil.last30days()
+            break
+        case ArchiveFilter.LAST_90_DAYS: 
+            dates = DateUtil.last90days()
+            break
+    }
+
+    debugger;
     
 }
 

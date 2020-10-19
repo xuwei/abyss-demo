@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Button, TextareaAutosize, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Button, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
@@ -11,6 +11,7 @@ import DialogModel from '../model/DialogModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
 import TaskService from '../service/TaskService'
+import TextInputArea from '../common/TextInputArea'
 
 // todo page
 function TodoPage() {
@@ -140,13 +141,7 @@ function TodoPage() {
         loadingManager.updateLoadingIndicator(loading)
     }, [loading, loadingManager])
 
-    const textAreaStyle = {
-        "width": "100%",
-        "textAlign" : "center",
-        "backgroundColor" : "black",
-        "color" : "white",
-        "wrap" : "hard"
-    }
+    
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
@@ -175,7 +170,7 @@ function TodoPage() {
                     </Paper>
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <TextareaAutosize ref={newTaskInput} rowsMin={3} placeholder="Enter new task" style={textAreaStyle} />
+                    <TextInputArea ref={newTaskInput} rowsMin={3} placeholder="Enter new task" />
                 </Box>
                 <Box flexGrow={1} align="center" pt={StandardPadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Button size="large" variant="contained" color="primary" onClick={addNewTask}>Add task</Button>
