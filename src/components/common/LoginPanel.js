@@ -1,13 +1,13 @@
 
 import React, { useContext } from 'react'
-import { Button, Paper, Box, Typography } from '@material-ui/core'
+import { Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
 import FacebookLoginButton from '../common/FacebookLoginButton'
+import AnonymousLoginButton from '../common/AnonymousLoginButton'
 import UserUtil from '../util/UserUtil'
 import MessageUtil from '../util/MessageUtil'
 import { userContext } from '../context/UserContext'
 import { StandardPadding } from '../Configs'
-import EditIcon from '@material-ui/icons/Edit';
 
 function LoginPanel(props) {
 
@@ -21,7 +21,7 @@ function LoginPanel(props) {
         })
     }
 
-    const loginAnonymous = () => {
+    const loginAnonymously = () => {
         UserUtil.loginAnonymously().then((loggedInUser) => {
             debugger;
             userManager.updateUser(loggedInUser)
@@ -48,7 +48,7 @@ function LoginPanel(props) {
                 </Typography>
                 </Box>
                 <Box px={0} py={StandardPadding.PY}>
-                    <Button variant="contained" size="large" color="primary" onClick={loginAnonymous}><EditIcon/>&nbsp;&nbsp;Login as guest</Button>
+                    <AnonymousLoginButton onClick={loginAnonymously}/>
                 </Box>
                 <Box px={0} py={StandardPadding.PY}>
                     <Typography variant="h5">OR</Typography>
