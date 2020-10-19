@@ -31,5 +31,9 @@ const ContentWidth = {
     MD: 6
 }
 
+const DateFormat = {
+    DefaultFormat: "YYYY-MM-DD"
+}
+
 export default Configs
-export { StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes }
+export { DateFormat, StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes }

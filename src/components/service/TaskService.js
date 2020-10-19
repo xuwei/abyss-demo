@@ -2,6 +2,7 @@ import firebase from '../../Firebase.js'
 import TaskModel from '../model/TaskModel.js'
 import DateUtil from '../util/DateUtil'
 import TaskArchieveModel, { ArchiveFilter } from '../model/TaskArchiveModel'
+import { BrandingWatermarkSharp } from '@material-ui/icons'
 
 const getUserTasks = (userId) => {
 
@@ -53,21 +54,56 @@ const saveUserTasks = (userId, tasks) => {
 }
 
 const getArchiveUserTasks = (userId, filter) => {
-    var dates = [] 
-    switch(filter) {
-        case ArchiveFilter.LAST_7_DAYS:
-            dates = DateUtil.last7days()
-            break
-        case ArchiveFilter.LAST_30_DAYS:
-            dates = DateUtil.last30days()
-            break
-        case ArchiveFilter.LAST_90_DAYS: 
-            dates = DateUtil.last90days()
-            break
-    }
 
-    debugger;
-    
+    return new Promise((resolve, reject) => {
+
+        var taskArchiveModels = [] 
+        var dates = [] 
+        switch(filter) {
+            case ArchiveFilter.LAST_7_DAYS:
+                dates = DateUtil.last7days()
+                break
+            case ArchiveFilter.LAST_30_DAYS:
+                dates = DateUtil.last30days()
+                break
+            case ArchiveFilter.LAST_90_DAYS: 
+                dates = DateUtil.last90days()
+                break
+            default:
+                resolve([])
+                break
+        }  
+
+        const db = firebase.firestore()
+        
+        const fetchByDate = (uid, date)=>{
+            
+            return new Promise((res, rej) => {
+                if (date.length == 0) { res(new TaskArchieveModel(date, [])) }
+                db.collection("archives").doc(uid).collection(date).get().then((result)=>{
+                    debugger;
+                    const model = new TaskArchieveModel(date, [])
+                    res(model)
+                }).catch((error)=> {
+                    const model = new TaskArchieveModel(date, [])
+                    res(model)
+                })
+            })    
+        }
+
+        var promises = []
+        for (var i = 0; i < dates.length; i++) {
+            var dateObj = dates[i]
+            promises.push(fetchByDate(userId, dateObj.date))
+        }
+
+        Promise.all(promises).then((result)=> {
+            debugger;
+            resolve(taskArchiveModels)
+        }).catch((error)=> {
+            resolve([])
+        })
+    })
 }
 
 const archiveUserTask = (userId, task) => {

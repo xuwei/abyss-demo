@@ -1,34 +1,42 @@
-import moment from 'moment'
+import Moment from 'moment';
+import { DateFormat } from '../Configs'
+import { extendMoment } from 'moment-range';
+const moment = extendMoment(Moment);
+
 
 const yyyyMMdd = (date)=> {
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate())
 }
 
+const datesByRange = (from, to) => {
+
+    const range = moment().range(from, to)
+    const dates = Array.from(range.by('day'))
+    const formattedDates = dates.map((date, index) => {
+        return { "order" : index, "date" : moment(date).format(DateFormat.DefaultFormat) }
+    })
+    return formattedDates
+}
+
 const last7days = ()=> {
-    moment().format('YYYY-MM-DD')
-    const today = moment().calendar()
-    const end = moment().add(7, 'days').calendar()
-    return datesByRange(today, end)
+    moment().format(DateFormat.DefaultFormat)
+    const end = moment()
+    const start = moment().subtract(6, 'days')
+    return datesByRange(start, end)
 }
 
 const last30days = ()=> {
-    moment().format('YYYY-MM-DD')
-    const today = moment().calendar()
-    const end = moment().add(30, 'days').calendar()
-    return datesByRange(today, end)
+    moment().format(DateFormat.DefaultFormat)
+    const end = moment()
+    const start = moment().subtract(29, 'days')
+    return datesByRange(start, end)
 }
 
 const last90days = ()=> {
-    moment().format('YYYY-MM-DD')
-    const today = moment().calendar()
-    const end = moment().add(90, 'days').calendar()
-    return datesByRange(today, end)
-}
-
-const datesByRange = (from, to) => {
-    var dates = []
-    const range = moment().range(from, to)
-    debugger;
+    moment().format(DateFormat.DefaultFormat)
+    const end = moment()
+    const start = moment().subtract(89, 'days')
+    return datesByRange(start, end)
 }
 
 export default { yyyyMMdd, datesByRange, last7days, last30days, last90days }
