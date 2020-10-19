@@ -1,4 +1,4 @@
-import { auth, provider } from '../../Firebase.js';
+import { auth, provider, fbProvider } from '../../Firebase.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 const subscribedPlan = ()=> {
@@ -9,6 +9,21 @@ const subscribedPlan = ()=> {
             reject(err)
         })
     })    
+}
+
+const loginFb = ()=> {
+    return new Promise((resolve, reject) => {
+        auth.signInWithPopup(fbProvider).then((result, error) => {
+            if (error) {
+                reject(error)
+                return
+            }
+
+            const loggedInUser = result.user
+            reactLocalStorage.setObject('user', loggedInUser)
+            resolve(loggedInUser)
+        })
+    })
 }
 
 const loginAnonymously = ()=> {
@@ -73,4 +88,4 @@ const fetchUser = ()=> {
     })
 }
 
-export default { fetchUser, subscribedPlan,  login, loginAnonymously, logout }
+export default { fetchUser, subscribedPlan,  login, loginFb, loginAnonymously, logout }

@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import { Button, Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
+import FacebookLoginButton from '../common/FacebookLoginButton'
 import UserUtil from '../util/UserUtil'
 import MessageUtil from '../util/MessageUtil'
 import { userContext } from '../context/UserContext'
@@ -29,6 +30,15 @@ function LoginPanel(props) {
         })
     }
 
+    const loginFB = () => {
+        UserUtil.loginFb().then((loggedInUser) => {
+            // use context obj's callback method to update user 
+            userManager.updateUser(loggedInUser)
+        }).catch((error) => {
+            MessageUtil.messagePopup(error)
+        })
+    }
+
     return (
         <Paper variant="outlined">
             <Box px={0} py={StandardPadding.PY} justifyContent="center">
@@ -45,6 +55,9 @@ function LoginPanel(props) {
                 </Box>
                 <Box px={0} py={StandardPadding.PY}>
                     <GoogleButton type="dark" onClick={login}/>
+                </Box>
+                <Box px={0} py={StandardPadding.PY} hidden={true}>
+                    <FacebookLoginButton appId="" onClick={loginFB}/>
                 </Box>
             </Box>
         </Paper>
