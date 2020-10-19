@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserUtil from './util/UserUtil'
+import UserService from './service/UserService'
 import MessageUtil from './util/MessageUtil'
 import { userContext } from './context/UserContext'
 
@@ -12,7 +12,7 @@ function Auth(props) {
     }
    
     useEffect(()=> {
-        UserUtil.fetchUser().then((loggedInUser) => {
+        UserService.fetchUser().then((loggedInUser) => {
             setUser(loggedInUser)
         }).catch((error)=> {
             MessageUtil.messagePopup(error)

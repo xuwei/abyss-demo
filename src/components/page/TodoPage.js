@@ -10,7 +10,7 @@ import TaskModel, { StateOfTask } from '../model/TaskModel'
 import DialogModel from '../model/DialogModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
-import TaskUtil from '../util/TaskUtil'
+import TaskService from '../service/TaskService'
 
 // todo page
 function TodoPage() {
@@ -89,9 +89,9 @@ function TodoPage() {
         const taskToArchive = tasks.find((task) => task.id === id)
         setLoading(true)
         const newList = tasks.filter((task)=> task.id !== id)
-        TaskUtil.saveUserTasks(user.uid, newList).then(()=>{
+        TaskService.saveUserTasks(user.uid, newList).then(()=>{
             setTasks(newList)
-            return TaskUtil.archiveUserTask(user.uid, taskToArchive)
+            return TaskService.archiveUserTask(user.uid, taskToArchive)
         }).catch((error)=> {
             const dialog = new DialogModel("Message", "An error has occurred. Please try again later.", "Ok")
             dialog.callback = ()=> { console.log("") }
@@ -107,7 +107,7 @@ function TodoPage() {
             if (userManager.user === null) return
             
             setLoading(true)
-            TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
+            TaskService.getUserTasks(userManager.user.uid).then((result) => {
                 setTasks(result)
             }).catch((error) => {
                 // redirect to error page
@@ -127,7 +127,7 @@ function TodoPage() {
             if (tasks.length === 0) return
 
             setLoading(true)
-            TaskUtil.saveUserTasks(userManager.user.uid, tasks).then(() => {
+            TaskService.saveUserTasks(userManager.user.uid, tasks).then(() => {
                 setLoading(false)
             }).catch((error)=> {
                 setLoading(false)

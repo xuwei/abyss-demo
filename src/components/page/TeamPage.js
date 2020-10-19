@@ -9,7 +9,7 @@ import TaskModel, { StateOfTask } from '../model/TaskModel'
 import DialogModel from '../model/DialogModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
-import TaskUtil from '../util/TaskUtil'
+import TaskService from '../service/TaskService'
 
 // team page
 function TeamPage() {
@@ -83,7 +83,7 @@ function TeamPage() {
     const storeTasks = () => {
         const user = userManager.user
         const tasksToStore = tasks
-        TaskUtil.saveUserTasks(user.uid, tasksToStore).then(()=> {
+        TaskService.saveUserTasks(user.uid, tasksToStore).then(()=> {
             const dialog = new DialogModel("Message", "Successfully Saved !", "Ok")
             dialog.callback = ()=> { console.log("") }
             dialogManager.updateDialogMsg(dialog)
@@ -96,7 +96,7 @@ function TeamPage() {
 
     useEffect(() => {
         if (userManager.user === null) return
-        TaskUtil.getUserTasks(userManager.user.uid).then((result) => {
+        TaskService.getUserTasks(userManager.user.uid).then((result) => {
             setTasks(result)
         }).catch((error) => {
             // redirect to error page

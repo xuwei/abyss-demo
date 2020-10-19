@@ -4,7 +4,7 @@ import { Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
 import FacebookLoginButton from '../common/FacebookLoginButton'
 import AnonymousLoginButton from '../common/AnonymousLoginButton'
-import UserUtil from '../util/UserUtil'
+import UserService from '../service/UserService'
 import MessageUtil from '../util/MessageUtil'
 import { userContext } from '../context/UserContext'
 import { StandardPadding } from '../Configs'
@@ -13,7 +13,7 @@ function LoginPanel(props) {
 
     const userManager = useContext(userContext)
     const login = () => {
-        UserUtil.login().then((loggedInUser) => {
+        UserService.login().then((loggedInUser) => {
             // use context obj's callback method to update user 
             userManager.updateUser(loggedInUser)
         }).catch((error) => {
@@ -22,7 +22,7 @@ function LoginPanel(props) {
     }
 
     const loginAnonymously = () => {
-        UserUtil.loginAnonymously().then((loggedInUser) => {
+        UserService.loginAnonymously().then((loggedInUser) => {
             debugger;
             userManager.updateUser(loggedInUser)
         }).catch((error) => {
@@ -31,7 +31,7 @@ function LoginPanel(props) {
     }
 
     const loginFB = () => {
-        UserUtil.loginFb().then((loggedInUser) => {
+        UserService.loginFb().then((loggedInUser) => {
             // use context obj's callback method to update user 
             userManager.updateUser(loggedInUser)
         }).catch((error) => {

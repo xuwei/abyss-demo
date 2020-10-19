@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { LinearProgress, Link, Menu, MenuItem, Box, Button, Typography, Toolbar, AppBar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
-import UserUtil from '../util/UserUtil'
+import UserService from '../service/UserService'
 import { userContext }  from '../context/UserContext'
 import { loadingContext } from '../context/LoadingContext'
 import { reactLocalStorage } from 'reactjs-localstorage'
@@ -21,7 +21,7 @@ function NavBar() {
     }
 
     const logout = () => {
-        UserUtil.logout().then(()=> {
+        UserService.logout().then(()=> {
             userManager.updateUser(null)
             reactLocalStorage.clear()
             
