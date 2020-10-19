@@ -38,6 +38,10 @@ function ArchivePage() {
         }
         fetchData()
     }, [userManager, setLoading, setNotFound])
+    
+    useEffect(() => {
+        loadingManager.updateLoadingIndicator(loading)
+    }, [loading, loadingManager])
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
