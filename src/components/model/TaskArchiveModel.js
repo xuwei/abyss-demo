@@ -6,7 +6,8 @@ const ArchiveFilter = {
 
 // represent 1 section of archieve results
 class TaskArchieveModel {
-    constructor (dateString, tasks) {
+    constructor (order, dateString, tasks) {
+        this.order = order
         this.dateString = dateString
         this.tasks = [...tasks]
     }

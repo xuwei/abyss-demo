@@ -2,7 +2,6 @@ import firebase from '../../Firebase.js'
 import TaskModel from '../model/TaskModel.js'
 import DateUtil from '../util/DateUtil'
 import TaskArchieveModel, { ArchiveFilter } from '../model/TaskArchiveModel'
-import { BrandingWatermarkSharp } from '@material-ui/icons'
 
 const getUserTasks = (userId) => {
 
@@ -57,7 +56,25 @@ const getArchiveUserTasks = (userId, filter) => {
 
     return new Promise((resolve, reject) => {
 
-        var taskArchiveModels = [] 
+        const fetchByDate = (uid, order, date)=>{
+            return new Promise((res, rej) => {
+                if (date.length == 0) { res(new TaskArchieveModel(order, date, [])) }
+                const db = firebase.firestore()
+                db.collection("archives").doc(uid).collection(date).get().then((querySnapshot)=>{
+                    const tasks = querySnapshot.docs.map((doc)=>{
+                        const data = doc.data()
+                        return new TaskModel(doc.id, data.descriptions, data.state, data.assigned, data.createdBy, data.posted)
+                    })
+                    const model = new TaskArchieveModel(order, date, tasks)
+                    res(model)
+                }).catch((error)=> {
+                    debugger;
+                    const model = new TaskArchieveModel(order, date, [])
+                    res(model)
+                })
+            })    
+        }
+
         var dates = [] 
         switch(filter) {
             case ArchiveFilter.LAST_7_DAYS:
@@ -70,38 +87,20 @@ const getArchiveUserTasks = (userId, filter) => {
                 dates = DateUtil.last90days()
                 break
             default:
-                resolve([])
+                dates = []
                 break
-        }  
-
-        const db = firebase.firestore()
-        
-        const fetchByDate = (uid, date)=>{
-            
-            return new Promise((res, rej) => {
-                if (date.length == 0) { res(new TaskArchieveModel(date, [])) }
-                db.collection("archives").doc(uid).collection(date).get().then((result)=>{
-                    debugger;
-                    const model = new TaskArchieveModel(date, [])
-                    res(model)
-                }).catch((error)=> {
-                    const model = new TaskArchieveModel(date, [])
-                    res(model)
-                })
-            })    
-        }
+        } 
 
         var promises = []
         for (var i = 0; i < dates.length; i++) {
             var dateObj = dates[i]
-            promises.push(fetchByDate(userId, dateObj.date))
+            promises.push(fetchByDate(userId, i+1, dateObj.date))
         }
 
-        Promise.all(promises).then((result)=> {
-            debugger;
-            resolve(taskArchiveModels)
+        Promise.all(promises).then((archiveModels)=>{
+            resolve(archiveModels)
         }).catch((error)=> {
-            resolve([])
+            reject(error)
         })
     })
 }
