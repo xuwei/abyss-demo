@@ -23,18 +23,34 @@ function ArchivePage() {
     const userManager = useContext(userContext)
     const dialogManager = useContext(dialogContext)
 
-    const deleteTask = (taskId)=> {
+    const deleteArchivedTask = (dateString, taskId)=> {
+        if (userManager.user === null) return 
+        if (dateString === null) return
+        if (taskId === null) return 
+
+        const uid = userManager.user.uid
         const dialog = new DialogModel("Message", "Delete task permanently ?", "Ok", "Cancel")
-        const callback = ()=> { 
-            alert("delete")
+        dialog.callback = ()=> { 
+            setLoading(true)
+            TaskService.deleteArchivedTask(uid, dateString, taskId).then(()=>{
+            }).catch((error)=>{
+                console.log(error)
+            }).finally(()=>{
+                setLoading(false)
+            })
         }
-        dialog.callback = callback
         dialogManager.updateDialogMsg(dialog)
     }
 
-    const restoreTask = (taskId)=> {
-        console.log("restore")
-        debugger;
+    const restoreTask = (dateString, taskId)=> {
+        if (userManager.user === null) return
+        const uid = userManager.user.uid
+        const dialog = new DialogModel("Message", "Restore task to active todo list ?", "Ok", "Cancel")
+        const callback = ()=> {
+
+        }
+        dialog.callback = callback
+        dialogManager.updateDialogMsg(dialog)   
     }
 
     useEffect(() => {
@@ -46,7 +62,6 @@ function ArchivePage() {
                 result.sort((a,b) => { return b.order - a.order})
                 setArchives(result)
             }).catch((error) => {
-                debugger;
                 setNotFound(true)
             }).finally(()=>{
                 setLoading(false)
@@ -75,7 +90,7 @@ function ArchivePage() {
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
                         {archives.map((archiveModel) => (
-                            <TaskArchive key={archiveModel.dateString} model={archiveModel} deleteTask={deleteTask} restoreTask={restoreTask} />
+                            <TaskArchive key={archiveModel.dateString} model={archiveModel} deleteTask={deleteArchivedTask} restoreTask={restoreTask} />
                         ))}
                     </Paper>
                 </Box>

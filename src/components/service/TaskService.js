@@ -52,6 +52,21 @@ const saveUserTasks = (userId, tasks) => {
     })
 }
 
+const deleteArchivedTask = (userId, dateString, taskId) => {
+    return new Promise((resolve, reject) => {
+        if (userId === null) { reject(new Error("UserId cannot be null")) }
+        if (taskId === null) { reject(new Error("TaskId cannot be null")) }
+        if (dateString === null) { reject(new Error("dateString cannot be null")) }
+
+        const db = firebase.firestore()
+        db.collection("archives").doc(userId).collection(dateString).doc(taskId).delete().then(()=>{
+            resolve()
+        }).catch((error)=>{
+            reject(error)
+        })
+    })
+}
+
 const getArchiveUserTasks = (userId, filter) => {
 
     return new Promise((resolve, reject) => {
@@ -68,7 +83,6 @@ const getArchiveUserTasks = (userId, filter) => {
                     const model = new TaskArchieveModel(order, date, tasks)
                     res(model)
                 }).catch((error)=> {
-                    debugger;
                     const model = new TaskArchieveModel(order, date, [])
                     res(model)
                 })
@@ -133,4 +147,4 @@ const archiveUserTask = (userId, task) => {
     })
 }
 
-export default { getUserTasks, saveUserTasks, getArchiveUserTasks, archiveUserTask }
+export default { getUserTasks, saveUserTasks, deleteArchivedTask, getArchiveUserTasks, archiveUserTask }

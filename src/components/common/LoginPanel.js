@@ -23,7 +23,6 @@ function LoginPanel(props) {
 
     const loginAnonymously = () => {
         UserService.loginAnonymously().then((loggedInUser) => {
-            debugger;
             userManager.updateUser(loggedInUser)
         }).catch((error) => {
             MessageUtil.messagePopup(error)

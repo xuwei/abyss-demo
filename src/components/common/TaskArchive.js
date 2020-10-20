@@ -19,12 +19,12 @@ function TaskArchive(props) {
         console.log("toggled")
     }, [setUpdated])
 
-    const deleteTask = (id) => {
-        props.deleteTask(id)
+    const deleteTask = (dateString, taskId) => {
+        props.deleteTask(dateString, taskId)
     }
 
-    const restoreTask = (id) => {
-        props.restoreTask(id)
+    const restoreTask = (dateString, taskId) => {
+        props.restoreTask(dateString, taskId)
     }
    
     
@@ -37,7 +37,7 @@ function TaskArchive(props) {
                 <AccordionDetails>
                     <Box>
                     { model.tasks.map((taskModel)=>(
-                        <ATask key={taskModel.id} model={taskModel} deleteTask={()=>{ deleteTask(taskModel.id)}} restoreTask={()=>{ restoreTask(taskModel.id)}}/>
+                        <ATask key={taskModel.id} model={taskModel} deleteTask={()=>{ deleteTask(model.dateString, taskModel.id)}} restoreTask={()=>{ restoreTask(model.dateString, taskModel.id)}}/>
                     ))}
                     </Box>
                 </AccordionDetails>
