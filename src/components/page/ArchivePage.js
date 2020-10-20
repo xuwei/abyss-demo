@@ -28,6 +28,7 @@ function ArchivePage() {
             
             setLoading(true)
             TaskService.getArchiveUserTasks(userManager.user.uid, filter).then((result) => {
+                result.sort((a,b) => { return b.order - a.order})
                 setArchives(result)
             }).catch((error) => {
                 debugger;

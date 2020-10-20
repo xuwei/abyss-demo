@@ -4,7 +4,7 @@ import FacebookLogin from 'react-facebook-login';
 function FacebookLoginButton(props) {
 
     const containerStyle =  {
-        "box-shadows": "rgba(0, 0, 0, 0.25) 0px 2px 4px 0px"
+        boxShadows: "rgba(0, 0, 0, 0.25) 0px 2px 4px 0px"
     }
     
     const buttonStyle = {

@@ -58,7 +58,7 @@ const getArchiveUserTasks = (userId, filter) => {
 
         const fetchByDate = (uid, order, date)=>{
             return new Promise((res, rej) => {
-                if (date.length == 0) { res(new TaskArchieveModel(order, date, [])) }
+                if (date.length === 0) { res(new TaskArchieveModel(order, date, [])) }
                 const db = firebase.firestore()
                 db.collection("archives").doc(uid).collection(date).get().then((querySnapshot)=>{
                     const tasks = querySnapshot.docs.map((doc)=>{
