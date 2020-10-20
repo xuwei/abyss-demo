@@ -10,34 +10,30 @@ import ObjectUtil from './util/ObjectUtil'
 
 function AppDialog(props) {
   const [open, setOpen] = useState(false);
-  const [decision, setDecision] = useState("")
+  const [confirmed, setConfirmed] = useState(false)
   const [dialogMsg, setDialogMsg] = useState(null)
 
   const showDialog = (model) => {
     setDialogMsg(model)
   }
 
+  const confirm = ()=> {
+    setConfirmed(true)
+    setOpen(false)
+  }
+
   const close = ()=> {
     setOpen(false)
   }
 
-  const madeDecision = (choice) => {
-    setDecision(choice)
-    setOpen(false)
-  }
-
   useEffect(()=> {
-    if (dialogMsg === null) return 
-    if (decision === dialogMsg.confirm) {
+    if (open === false && confirmed === true) {
+      setConfirmed(false)
       if (dialogMsg != null && ObjectUtil.isFunction(dialogMsg.callback))  {
         dialogMsg.callback()
       }
-    } else if (decision === dialogMsg.cancel) {
-      if (dialogMsg != null && ObjectUtil.isFunction(dialogMsg.cancel))  {
-        dialogMsg.cancelCallback()
-      }
     }
-  }, [decision, dialogMsg])
+  }, [open, setConfirmed, dialogMsg])
 
   useEffect(() => {
     const model = dialogMsg
@@ -53,7 +49,6 @@ function AppDialog(props) {
       </dialogContext.Provider>
     )
   }
- 
   return (
     <dialogContext.Provider value={{updateDialogMsg : showDialog}}>
       {props.children}
@@ -69,22 +64,23 @@ function AppDialog(props) {
             {dialogMsg.message}
           </DialogContentText>
         </DialogContent>
-        {dialogMsg.cancel.length > 0 ?
+        { dialogMsg.cancel ? 
         <DialogActions>
-          <Button color="primary" onClick={madeDecision(dialogMsg.confirm)}>
-            {dialogMsg.confirm}
+          <Button color="primary" onClick={confirm}>
+          {dialogMsg.confirm}
           </Button>
-          <Button color="primary" onClick={madeDecision(dialogMsg.cancel)}>
-            {dialogMsg.cancel}
+          <Button color="primary" onClick={close}>
+          {dialogMsg.cancel}
           </Button>
         </DialogActions>
-        :
-        <DialogActions>
-          <Button color="primary" onClick={madeDecision(dialogMsg.confirm)}>
+          :
+          <DialogActions>
+            <Button color="primary" onClick={confirm}>
             {dialogMsg.confirm}
-          </Button>
-        </DialogActions>
-         }
+            </Button>
+          </DialogActions>
+        }
+        
       </Dialog>
     </dialogContext.Provider>
   )

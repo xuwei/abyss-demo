@@ -24,8 +24,12 @@ function ArchivePage() {
     const dialogManager = useContext(dialogContext)
 
     const deleteTask = (taskId)=> {
-        console.log("delete")
-        debugger;
+        const dialog = new DialogModel("Message", "Delete task permanently ?", "Ok", "Cancel")
+        const callback = ()=> { 
+            alert("delete")
+        }
+        dialog.callback = callback
+        dialogManager.updateDialogMsg(dialog)
     }
 
     const restoreTask = (taskId)=> {

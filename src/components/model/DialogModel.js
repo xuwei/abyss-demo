@@ -3,8 +3,7 @@ export default class DialogModel {
         this.title = title 
         this.message = message
         this.confirm = confirm
-        this.cancel = cancel != undefined ? cancel : ""
+        this.cancel = cancel !== null ? cancel : ""
         this.callback = ()=>{} 
-        this.cancelCallback = ()=> {} 
     }
 }
