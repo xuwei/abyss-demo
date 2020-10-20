@@ -10,6 +10,7 @@ import ObjectUtil from './util/ObjectUtil'
 
 function AppDialog(props) {
   const [open, setOpen] = useState(false);
+  const [decision, setDecision] = useState("")
   const [dialogMsg, setDialogMsg] = useState(null)
 
   const showDialog = (model) => {
@@ -20,13 +21,23 @@ function AppDialog(props) {
     setOpen(false)
   }
 
+  const madeDecision = (choice) => {
+    setDecision(choice)
+    setOpen(false)
+  }
+
   useEffect(()=> {
-    if (open === false) {
+    if (dialogMsg === null) return 
+    if (decision === dialogMsg.confirm) {
       if (dialogMsg != null && ObjectUtil.isFunction(dialogMsg.callback))  {
         dialogMsg.callback()
       }
+    } else if (decision === dialogMsg.cancel) {
+      if (dialogMsg != null && ObjectUtil.isFunction(dialogMsg.cancel))  {
+        dialogMsg.cancelCallback()
+      }
     }
-  }, [open, dialogMsg])
+  }, [decision, dialogMsg])
 
   useEffect(() => {
     const model = dialogMsg
@@ -42,6 +53,7 @@ function AppDialog(props) {
       </dialogContext.Provider>
     )
   }
+ 
   return (
     <dialogContext.Provider value={{updateDialogMsg : showDialog}}>
       {props.children}
@@ -57,11 +69,22 @@ function AppDialog(props) {
             {dialogMsg.message}
           </DialogContentText>
         </DialogContent>
+        {dialogMsg.cancel.length > 0 ?
         <DialogActions>
-          <Button color="primary" onClick={close}>
+          <Button color="primary" onClick={madeDecision(dialogMsg.confirm)}>
+            {dialogMsg.confirm}
+          </Button>
+          <Button color="primary" onClick={madeDecision(dialogMsg.cancel)}>
+            {dialogMsg.cancel}
+          </Button>
+        </DialogActions>
+        :
+        <DialogActions>
+          <Button color="primary" onClick={madeDecision(dialogMsg.confirm)}>
             {dialogMsg.confirm}
           </Button>
         </DialogActions>
+         }
       </Dialog>
     </dialogContext.Provider>
   )

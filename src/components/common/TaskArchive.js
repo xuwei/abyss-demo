@@ -18,6 +18,14 @@ function TaskArchive(props) {
     useEffect(() => {
         console.log("toggled")
     }, [setUpdated])
+
+    const deleteTask = (id) => {
+        props.deleteTask(id)
+    }
+
+    const restoreTask = (id) => {
+        props.restoreTask(id)
+    }
    
     
     return(
@@ -29,7 +37,7 @@ function TaskArchive(props) {
                 <AccordionDetails>
                     <Box>
                     { model.tasks.map((taskModel)=>(
-                        <ATask key={taskModel.id} model={taskModel}/>
+                        <ATask key={taskModel.id} model={taskModel} deleteTask={()=>{ deleteTask(taskModel.id)}} restoreTask={()=>{ restoreTask(taskModel.id)}}/>
                     ))}
                     </Box>
                 </AccordionDetails>

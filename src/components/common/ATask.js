@@ -1,5 +1,5 @@
 import { Checkbox, Box, Typography, TextField } from '@material-ui/core'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { StateOfTask } from '../model/TaskModel'
 import DeleteIcon from '@material-ui/icons/Delete'
 import RestoreIcon from '@material-ui/icons/Restore'
@@ -42,7 +42,7 @@ function ATask(props) {
                         <IconButton onClick={props.restoreTask}><RestoreIcon/></IconButton>
                     </Box>
                     <Box p={1}>
-                        <IconButton onClick={props.deletTask}><DeleteIcon/></IconButton>
+                        <IconButton onClick={props.deleteTask}><DeleteIcon/></IconButton>
                     </Box>
                 </Box>
             )

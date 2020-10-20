@@ -9,6 +9,7 @@ import LoginPanel from '../common/LoginPanel'
 import TaskArchive from '../common/TaskArchive'
 import { ArchiveFilter } from '../model/TaskArchiveModel'
 import TaskService from '../service/TaskService'
+import DialogModel from '../model/DialogModel'
 
 // archive page
 function ArchivePage() {
@@ -21,6 +22,16 @@ function ArchivePage() {
     const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
     const dialogManager = useContext(dialogContext)
+
+    const deleteTask = (taskId)=> {
+        console.log("delete")
+        debugger;
+    }
+
+    const restoreTask = (taskId)=> {
+        console.log("restore")
+        debugger;
+    }
 
     useEffect(() => {
         const fetchData = () => {
@@ -60,7 +71,7 @@ function ArchivePage() {
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
                         {archives.map((archiveModel) => (
-                            <TaskArchive key={archiveModel.dateString} model={archiveModel} />
+                            <TaskArchive key={archiveModel.dateString} model={archiveModel} deleteTask={deleteTask} restoreTask={restoreTask} />
                         ))}
                     </Paper>
                 </Box>
