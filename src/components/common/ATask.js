@@ -1,4 +1,4 @@
-import { Checkbox, Box, Typography, TextField } from '@material-ui/core'
+import { Checkbox, Box, Typography } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { StateOfTask } from '../model/TaskModel'
 import DeleteIcon from '@material-ui/icons/Delete'

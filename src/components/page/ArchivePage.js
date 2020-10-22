@@ -33,10 +33,18 @@ function ArchivePage() {
         dialog.callback = ()=> { 
             setLoading(true)
             TaskService.deleteArchivedTask(uid, dateString, taskId).then(()=>{
+                var newArchives = archives
+                const index = newArchives.findIndex(element => element.dateString === dateString)
+                const updatedArchive = newArchives[index]
+                const updatedTasks = updatedArchive.tasks.filter((task) => { return task.id !== taskId})
+                updatedArchive.tasks = updatedTasks
+                newArchives[index] = updatedArchive
+                setArchives(newArchives)
             }).catch((error)=>{
                 console.log(error)
             }).finally(()=>{
                 setLoading(false)
+                
             })
         }
         dialogManager.updateDialogMsg(dialog)
