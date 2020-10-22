@@ -52,7 +52,7 @@ function ArchivePage() {
 
     const restoreTask = (dateString, taskId)=> {
         if (userManager.user === null) return
-        const uid = userManager.user.uid
+        // const uid = userManager.user.uid
         const dialog = new DialogModel("Message", "Restore task to active todo list ?", "Ok", "Cancel")
         const callback = ()=> {
 
@@ -64,7 +64,7 @@ function ArchivePage() {
     useEffect(() => {
         const fetchData = () => {
             if (userManager.user === null) return
-            
+            setFilter(ArchiveFilter.LAST_7_DAYS)
             setLoading(true)
             TaskService.getArchiveUserTasks(userManager.user.uid, filter).then((result) => {
                 result.sort((a,b) => { return b.order - a.order})
@@ -76,7 +76,7 @@ function ArchivePage() {
             })
         }
         fetchData()
-    }, [userManager, setLoading, setNotFound])
+    }, [userManager, filter, setLoading, setNotFound])
     
     useEffect(() => {
         loadingManager.updateLoadingIndicator(loading)
