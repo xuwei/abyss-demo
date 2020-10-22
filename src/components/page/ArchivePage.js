@@ -4,6 +4,8 @@ import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
 import { Paper, Typography, Box, Container } from '@material-ui/core'
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import LoginPanel from '../common/LoginPanel'
 import TaskArchive from '../common/TaskArchive'
@@ -22,6 +24,10 @@ function ArchivePage() {
     const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
     const dialogManager = useContext(dialogContext)
+
+    const handleFilterUpdate = (e, filterValue)=> {
+        setFilter(filterValue)
+    }
 
     const deleteArchivedTask = (dateString, taskId)=> {
         if (userManager.user === null) return 
@@ -64,7 +70,6 @@ function ArchivePage() {
     useEffect(() => {
         const fetchData = () => {
             if (userManager.user === null) return
-            setFilter(ArchiveFilter.LAST_7_DAYS)
             setLoading(true)
             TaskService.getArchiveUserTasks(userManager.user.uid, filter).then((result) => {
                 result.sort((a,b) => { return b.order - a.order})
@@ -94,6 +99,14 @@ function ArchivePage() {
                     <Typography variant="h2" color="primary" mx="auto" >
                         My Todo Archive
                     </Typography>
+                </Box>
+                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                    <ToggleButtonGroup exclusive size="large" color="primary" value={filter} onChange={handleFilterUpdate}>
+                        <ToggleButton value={ArchiveFilter.LAST_7_DAYS}>7 days</ToggleButton>
+                        <ToggleButton value={ArchiveFilter.LAST_14_DAYS}>14 days</ToggleButton>
+                        <ToggleButton value={ArchiveFilter.LAST_21_DAYS}>21 days</ToggleButton>
+                        <ToggleButton value={ArchiveFilter.CUSTOM}>Custom</ToggleButton>
+                    </ToggleButtonGroup>
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>

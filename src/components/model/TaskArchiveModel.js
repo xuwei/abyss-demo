@@ -1,7 +1,8 @@
 const ArchiveFilter = {
     LAST_7_DAYS : '7', 
-    LAST_30_DAYS : '30',
-    LAST_90_DAYS : '90'
+    LAST_14_DAYS : '14',
+    LAST_21_DAYS : '21',
+    CUSTOM: "custom"
 }
 
 // represent 1 section of archieve results
