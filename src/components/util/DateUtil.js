@@ -25,18 +25,18 @@ const last7days = ()=> {
     return datesByRange(start, end)
 }
 
-const last30days = ()=> {
+const last14days = ()=> {
     moment().format(DateFormat.DefaultFormat)
     const end = moment()
-    const start = moment().subtract(29, 'days')
+    const start = moment().subtract(13, 'days')
     return datesByRange(start, end)
 }
 
-const last90days = ()=> {
+const last21days = ()=> {
     moment().format(DateFormat.DefaultFormat)
     const end = moment()
-    const start = moment().subtract(89, 'days')
+    const start = moment().subtract(20, 'days')
     return datesByRange(start, end)
 }
 
-export default { yyyyMMdd, datesByRange, last7days, last30days, last90days }
+export default { yyyyMMdd, datesByRange, last7days, last14days, last21days }

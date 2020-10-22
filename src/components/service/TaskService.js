@@ -94,10 +94,10 @@ const getArchiveUserTasks = (userId, filter) => {
             case ArchiveFilter.LAST_7_DAYS:
                 dates = DateUtil.last7days()
                 break
-            case ArchiveFilter.LAST_30_DAYS:
+            case ArchiveFilter.LAST_14_DAYS:
                 dates = DateUtil.last30days()
                 break
-            case ArchiveFilter.LAST_90_DAYS: 
+            case ArchiveFilter.LAST_21_DAYS: 
                 dates = DateUtil.last90days()
                 break
             default:
