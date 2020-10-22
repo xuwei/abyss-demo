@@ -68,7 +68,6 @@ function TodoPage() {
     }
 
     const updateState = (id, state) => {
-        var currentList = [...tasks]
         var currentList = tasks.map((task)=>{ 
             if (task.id === id) {
                 task.state = state
