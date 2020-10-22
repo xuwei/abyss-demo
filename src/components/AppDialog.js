@@ -33,7 +33,7 @@ function AppDialog(props) {
         dialogMsg.callback()
       }
     }
-  }, [open, setConfirmed, dialogMsg])
+  }, [open, confirmed, dialogMsg])
 
   useEffect(() => {
     const model = dialogMsg

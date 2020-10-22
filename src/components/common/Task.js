@@ -6,6 +6,7 @@ import DoneIcon from '@material-ui/icons/Done'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import UndoIcon from '@material-ui/icons/Undo'
 import { IconButton } from '@material-ui/core'
+import { BorderStyle } from '../Configs'
 
 function Task(props) {
 
@@ -18,11 +19,18 @@ function Task(props) {
 
     useEffect(() => {
     }, [])
-   
+
+    const defaultProps = {
+        display: "flex",
+        flexDirection: "row",
+        p: 1,
+        m: 0
+    }
+
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box display="flex" flexDirection="row" p={1} m={1}>
+                <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
@@ -42,7 +50,7 @@ function Task(props) {
             )
         case StateOfTask.Edit:
             return(
-                <Box display="flex" flexDirection="row" p={1} m={1}>
+                <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
                         <Checkbox checked={false} onChange={props.checkEvent}/>
                     </Box>
@@ -62,7 +70,7 @@ function Task(props) {
             )
         case StateOfTask.Done:
             return ( 
-                <Box display="flex" flexDirection="row" p={1} m={1}>
+                <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
                         <Checkbox color="primary" checked={true}/>
                     </Box>

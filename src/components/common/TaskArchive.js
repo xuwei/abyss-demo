@@ -3,6 +3,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Box, Typography } from '
 import ATask from '../common/ATask'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import uuid from 'react-uuid'
+import BorderStyle from '../Configs'
 
 function TaskArchive(props) {
 
@@ -29,7 +30,7 @@ function TaskArchive(props) {
    
     
     return(
-        <Box>
+        <Box p={1} m={0} borderBottom={BorderStyle}>
              <Accordion square onClick={toggleExpanded}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id={uuid()}>
                     <Typography color="primary" variant="h6">{model.dateString}&nbsp;{model.tasks.length > 0 && ("(" + model.tasks.length + ")" )}</Typography>
