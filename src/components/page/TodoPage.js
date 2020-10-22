@@ -51,15 +51,32 @@ function TodoPage() {
         updateState(id, StateOfTask.Done)
     }
 
+    const toggleTaskState = (id) => {
+
+        var currentList = tasks.map((task)=>{ 
+            if (task.id === id) {
+                if (task.state === StateOfTask.Done) {
+                    task.state = StateOfTask.Pending
+                } else if (task.state === StateOfTask.Pending) {
+                    task.state = StateOfTask.Done
+                }
+            }
+            return task
+        })
+
+        setTasks(currentList)
+    }
+
     const updateState = (id, state) => {
         var currentList = [...tasks]
-        for (var i = 0; i < currentList.length; i++) {
-            var task = currentList[i]
+        var currentList = tasks.map((task)=>{ 
             if (task.id === id) {
                 task.state = state
+                
             }
-            currentList[i] = task
-        }
+            return task
+        })
+
         setTasks(currentList)
     }
 
@@ -160,6 +177,7 @@ function TodoPage() {
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
                         {tasks.map((taskModel) => (
                             <Task key={taskModel.id} model={taskModel} 
+                                toggleTaskState={()=>{ toggleTaskState(taskModel.id)}}
                                 doneTask={()=>{ doneTask(taskModel.id)}}
                                 undoTask={()=>{ undoTask(taskModel.id)}}
                                 startEdit={()=>{ startEdit(taskModel.id)}}

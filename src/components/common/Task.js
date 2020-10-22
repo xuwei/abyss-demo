@@ -32,7 +32,7 @@ function Task(props) {
             return(
                 <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
-                        <Checkbox checked={false} onChange={props.checkEvent}/>
+                        <Checkbox checked={false} onChange={props.checkEvent} onClick={props.toggleTaskState}/>
                     </Box>
                     <Box p={1}>
                         <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
@@ -52,7 +52,7 @@ function Task(props) {
             return(
                 <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
-                        <Checkbox checked={false} onChange={props.checkEvent}/>
+                        <Checkbox disabled checked={false} onChange={props.checkEvent}/>
                     </Box>
                     <Box p={1}>
                         <TextField defaultValue={model.descriptions} onChange={handleTextChange}/>
@@ -72,7 +72,7 @@ function Task(props) {
             return ( 
                 <Box {...defaultProps} borderBottom={BorderStyle}>
                     <Box p={1}>
-                        <Checkbox color="primary" checked={true}/>
+                        <Checkbox color="primary" checked={true} onClick={props.toggleTaskState}/>
                     </Box>
                     <Box p={1}>
                         <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
