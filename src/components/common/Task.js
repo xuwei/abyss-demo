@@ -6,7 +6,7 @@ import DoneIcon from '@material-ui/icons/Done'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import UndoIcon from '@material-ui/icons/Undo'
 import { IconButton } from '@material-ui/core'
-import { BorderStyle } from '../Configs'
+import { BorderStyle, DefaultIconFontSize } from '../Configs'
 
 function Task(props) {
 
@@ -20,18 +20,23 @@ function Task(props) {
     useEffect(() => {
     }, [])
 
-    const defaultProps = {
+    const column = {
         display: "flex",
         flexDirection: "column",
         p: 1,
         m: 0
     }
 
+    const row = {
+        display: "flex",
+        flexDirection: "row"
+    }
+
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box {...defaultProps} borderBottom={BorderStyle}>
-                    <Box display="flex" flexDirection="row">
+                <Box {...column} borderBottom={BorderStyle}>
+                    <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
                                 <Checkbox checked={false} onChange={props.checkEvent} onClick={props.toggleTaskState}/>
@@ -41,23 +46,23 @@ function Task(props) {
                             <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
                         </Box>
                     </Box>
-                    <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                    <Box {...row} justifyContent="flex-end">
                         <Box p={1}>
-                            <IconButton onClick={props.startEdit}><EditIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={props.startEdit}><EditIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                         <Box p={1}>
-                            <IconButton onClick={props.doneTask}><DoneIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={props.doneTask}><DoneIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                         <Box p={1}>
-                            <IconButton onClick={props.archiveTask}><ArchiveIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={props.archiveTask}><ArchiveIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                     </Box>
                 </Box>
             )
         case StateOfTask.Edit:
             return(
-                <Box {...defaultProps} borderBottom={BorderStyle}>
-                    <Box display="flex" flexDirection="row">
+                <Box {...column} borderBottom={BorderStyle}>
+                    <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
                                 <Checkbox disabled checked={false} onChange={props.checkEvent}/>
@@ -67,23 +72,23 @@ function Task(props) {
                             <TextField fullWidth={true} defaultValue={model.descriptions} onChange={handleTextChange}/>
                         </Box >
                     </Box>
-                    <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                    <Box {...row} justifyContent="flex-end">
                         <Box p={1}>
-                            <IconButton onClick={() => props.endEdit(model.id, desc)}><EditIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={() => props.endEdit(model.id, desc)}><EditIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                         <Box p={1}>
-                            <IconButton disabled={true} onClick={props.doneTask}><DoneIcon fontSize="small"/></IconButton>
+                            <IconButton disabled={true} onClick={props.doneTask}><DoneIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                         <Box p={1}>
-                            <IconButton disabled={true} onClick={props.archiveTask}><ArchiveIcon fontSize="small"/></IconButton>
+                            <IconButton disabled={true} onClick={props.archiveTask}><ArchiveIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                     </Box>
                 </Box>
             )
         case StateOfTask.Done:
             return ( 
-                <Box {...defaultProps} borderBottom={BorderStyle}>
-                    <Box display="flex" flexDirection="row">
+                <Box {...column} borderBottom={BorderStyle}>
+                    <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
                                 <Checkbox color="primary" checked={true} onClick={props.toggleTaskState}/>
@@ -93,12 +98,12 @@ function Task(props) {
                             <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                         </Box>
                     </Box>
-                    <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                    <Box {...row} justifyContent="flex-end">
                         <Box p={1}>
-                            <IconButton onClick={props.undoTask}><UndoIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={props.undoTask}><UndoIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                         <Box p={1}>
-                            <IconButton onClick={props.archiveTask}><ArchiveIcon fontSize="small"/></IconButton>
+                            <IconButton onClick={props.archiveTask}><ArchiveIcon fontSize={DefaultIconFontSize}/></IconButton>
                         </Box>
                     </Box>
                 </Box>

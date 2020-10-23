@@ -36,7 +36,7 @@ function TaskArchive(props) {
                     <Typography color="primary" variant="h6">{model.dateString}&nbsp;{model.tasks.length > 0 && ("(" + model.tasks.length + ")" )}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Box>
+                    <Box flexGrow={1}>
                     { model.tasks.map((taskModel)=>(
                         <ATask key={taskModel.id} model={taskModel} deleteTask={()=>{ deleteTask(model.dateString, taskModel.id)}} restoreTask={()=>{ restoreTask(model.dateString, taskModel.id)}}/>
                     ))}
