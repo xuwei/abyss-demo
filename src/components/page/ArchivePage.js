@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Button, ButtonGroup, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Tab, Tabs, Paper, Typography, Box, Container } from '@material-ui/core'
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import LoginPanel from '../common/LoginPanel'
 import TaskArchive from '../common/TaskArchive'
@@ -98,13 +98,18 @@ function ArchivePage() {
                         My Todo Archive
                     </Typography>
                 </Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY}>
-                    <ButtonGroup exclusive size="large" color="primary" value={filter} onChange={handleFilterUpdate}>
-                        <Button value={ArchiveFilter.LAST_7_DAYS}>7 days</Button>
-                        <Button value={ArchiveFilter.LAST_14_DAYS}>14 days</Button>
-                        <Button value={ArchiveFilter.LAST_21_DAYS}>21 days</Button>
-                        <Button value={ArchiveFilter.CUSTOM}>Custom</Button>
-                    </ButtonGroup>
+                <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                    <Tabs
+                        value={filter}
+                        onChange={handleFilterUpdate}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
+                    >
+                        <Tab value={ArchiveFilter.LAST_7_DAYS} label="7 days" />
+                        <Tab value={ArchiveFilter.LAST_14_DAYS} label="14 days" />
+                        <Tab value={ArchiveFilter.LAST_21_DAYS} label="21 days" />
+                    </Tabs>
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
