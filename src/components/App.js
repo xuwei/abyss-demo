@@ -14,6 +14,7 @@ import AppDialog from './AppDialog'
 import Auth from './Auth'
 import LoadingIndicator from './LoadingIndicator'
 import ArchivePage from './page/ArchivePage';
+import { hotjar } from 'react-hotjar'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       })
   
   defaultTheme = responsiveFontSizes(defaultTheme);
+  hotjar.initialize(2056601, 6)
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <CssBaseline />
