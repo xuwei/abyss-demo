@@ -27,6 +27,30 @@ function ArchivePage() {
         setFilter(filterValue)
     }
 
+    const findArchiveModelIndex = (dateString) => {
+        var newArchives = archives
+        const index = newArchives.findIndex(element => element.dateString === dateString)
+        return index
+    }
+
+    const findTaskModel = (dateString, taskId) => {
+        const newArchives = archives
+        const index = findArchiveModelIndex(dateString)
+        var resultArchieve = newArchives[index]
+        const taskModel = resultArchieve.tasks.find(task => task.id === taskId)
+        return taskModel
+    }
+
+    const removeTaskFromArchive = (dateString, taskId) => {
+        debugger;
+        var newArchives = archives
+        const index = findArchiveModelIndex(dateString)
+        var updatedArchive = newArchives[index]
+        updatedArchive = updatedArchive.deleteArchivedTask(taskId)
+        newArchives[index] = updatedArchive
+        return newArchives
+    }
+
     const deleteArchivedTask = (dateString, taskId)=> {
         if (userManager.user === null) return 
         if (dateString === null) return
@@ -37,18 +61,12 @@ function ArchivePage() {
         dialog.callback = ()=> { 
             setLoading(true)
             TaskService.deleteArchivedTask(uid, dateString, taskId).then(()=>{
-                var newArchives = archives
-                const index = newArchives.findIndex(element => element.dateString === dateString)
-                const updatedArchive = newArchives[index]
-                const updatedTasks = updatedArchive.tasks.filter((task) => { return task.id !== taskId})
-                updatedArchive.tasks = updatedTasks
-                newArchives[index] = updatedArchive
+                const newArchives = removeTaskFromArchive(dateString, taskId)
                 setArchives(newArchives)
             }).catch((error)=>{
                 console.log(error)
             }).finally(()=>{
                 setLoading(false)
-                
             })
         }
         dialogManager.updateDialogMsg(dialog)
@@ -56,10 +74,21 @@ function ArchivePage() {
 
     const restoreTask = (dateString, taskId)=> {
         if (userManager.user === null) return
-        // const uid = userManager.user.uid
+        const uid = userManager.user.uid
         const dialog = new DialogModel("Message", "Restore task to active todo list ?", "Ok", "Cancel")
         const callback = ()=> {
-
+            setLoading(true)
+            const taskModelToRestore = findTaskModel(dateString, taskId)
+            TaskService.restoreArchivedUserTask(uid, taskModelToRestore).then(()=>{
+                return TaskService.deleteArchivedTask(uid, dateString, taskId)
+            }).then(()=>{
+                const newArchives = removeTaskFromArchive(dateString, taskId)
+                setArchives(newArchives)
+            }).catch((error)=>{
+                console.log(error)
+            }).finally(()=>{
+                setLoading(false)
+            })
         }
         dialog.callback = callback
         dialogManager.updateDialogMsg(dialog)   

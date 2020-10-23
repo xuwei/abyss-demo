@@ -12,6 +12,14 @@ class TaskArchieveModel {
         this.dateString = dateString
         this.tasks = [...tasks]
     }
+
+    deleteArchivedTask = (taskId) => {
+        debugger;
+        const filteredTasks = this.tasks.filter((task) => { return task.id !== taskId})
+        this.tasks = filteredTasks
+        debugger;
+        return this
+    }
 }
 
 export default TaskArchieveModel

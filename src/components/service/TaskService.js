@@ -67,6 +67,19 @@ const deleteArchivedTask = (userId, dateString, taskId) => {
     })
 }
 
+const restoreArchivedUserTask = (userId, taskModel) => {
+    return new Promise((resolve, reject) => {
+        getUserTasks(userId).then((tasks)=> {
+            tasks.push(taskModel)
+            return saveUserTasks(userId, tasks)
+        }).then(()=>{
+            resolve()
+        }).catch((error)=>{
+            reject(error)
+        })
+    })
+}
+
 const getArchiveUserTasks = (userId, filter) => {
 
     return new Promise((resolve, reject) => {
@@ -147,4 +160,4 @@ const archiveUserTask = (userId, task) => {
     })
 }
 
-export default { getUserTasks, saveUserTasks, deleteArchivedTask, getArchiveUserTasks, archiveUserTask }
+export default { getUserTasks, saveUserTasks, deleteArchivedTask, getArchiveUserTasks, archiveUserTask, restoreArchivedUserTask }
