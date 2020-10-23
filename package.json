@@ -12,6 +12,7 @@
     "moment": "^2.29.1",
     "moment-range": "^4.0.2",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
     "react-google-button": "^0.7.1",

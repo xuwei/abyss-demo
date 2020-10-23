@@ -12,6 +12,7 @@ import uuid from 'react-uuid'
 import Task from '../common/Task'
 import TaskService from '../service/TaskService'
 import TextInputArea from '../common/TextInputArea'
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 // todo page
 function TodoPage() {
@@ -118,6 +119,27 @@ function TodoPage() {
         })        
     }
 
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    }
+
+    const onDragEnd = (result) => {
+        debugger;
+        if (!result.destination) return
+        if (result.destination.index === result.source.index) return
+          
+      
+        const updatedTasks = reorder(
+            tasks,
+            result.source.index,
+            result.destination.index
+        )
+      
+        setTasks(updatedTasks)
+    }
 
     useEffect(() => {
         const fetchData = () => {
@@ -157,7 +179,25 @@ function TodoPage() {
         loadingManager.updateLoadingIndicator(loading)
     }, [loading, loadingManager])
 
-    
+    const TaskList = React.memo(function TaskList({ taskList }) {
+        return taskList.map((taskModel, index) => (
+            <Draggable draggableId={taskModel.id} index={index}>
+            {(provided) => (
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+            <Task key={taskModel.id} model={taskModel} 
+                toggleTaskState={()=>{ toggleTaskState(taskModel.id)}}
+                doneTask={()=>{ doneTask(taskModel.id)}}
+                undoTask={()=>{ undoTask(taskModel.id)}}
+                startEdit={()=>{ startEdit(taskModel.id)}}
+                endEdit={endEdit} 
+                archiveTask={()=>{archiveTask(taskModel.id)}}
+                
+            />
+            </div>
+            )}
+            </Draggable>
+        ))
+    })
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
@@ -174,16 +214,16 @@ function TodoPage() {
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
-                        {tasks.map((taskModel) => (
-                            <Task key={taskModel.id} model={taskModel} 
-                                toggleTaskState={()=>{ toggleTaskState(taskModel.id)}}
-                                doneTask={()=>{ doneTask(taskModel.id)}}
-                                undoTask={()=>{ undoTask(taskModel.id)}}
-                                startEdit={()=>{ startEdit(taskModel.id)}}
-                                endEdit={endEdit} 
-                                archiveTask={()=>{archiveTask(taskModel.id)}}
-                            />
-                        ))}
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <Droppable droppableId="list">
+                            { (provided) => (
+                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    <TaskList taskList={tasks}/>
+                                    {provided.placeholder}
+                                </div>
+                            )}   
+                            </Droppable>
+                        </DragDropContext>
                     </Paper>
                 </Box>
                 <Box flexGrow={1} align="center" py={LargePadding.PY} xs={ContentWidth.SM} md={ContentWidth.MD}>
