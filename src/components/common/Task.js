@@ -41,6 +41,12 @@ function Task(props) {
         }
     }, [model, showConfetti, loadingManager])
 
+    useEffect(()=>{
+        if (showConfetti === true) {
+            model.showConfetti = null
+        }
+    }, [showConfetti])
+
     const column = {
         display: "flex",
         flexDirection: "column",

@@ -127,11 +127,9 @@ function TodoPage() {
     }
 
     const onDragEnd = (result) => {
-        debugger;
         if (!result.destination) return
         if (result.destination.index === result.source.index) return
           
-      
         const updatedTasks = reorder(
             tasks,
             result.source.index,
