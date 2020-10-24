@@ -181,7 +181,7 @@ function TodoPage() {
 
     const TaskList = React.memo(function TaskList({ taskList }) {
         return taskList.map((taskModel, index) => (
-            <Draggable draggableId={taskModel.id} index={index}>
+            <Draggable key={taskModel.id} draggableId={taskModel.id} index={index}>
             {(provided) => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             <Task key={taskModel.id} model={taskModel} 
@@ -191,7 +191,6 @@ function TodoPage() {
                 startEdit={()=>{ startEdit(taskModel.id)}}
                 endEdit={endEdit} 
                 archiveTask={()=>{archiveTask(taskModel.id)}}
-                
             />
             </div>
             )}
