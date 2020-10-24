@@ -19,7 +19,7 @@ function Task(props) {
 
     const config = {
         angle: "360",
-        spread: "180",
+        spread: "360",
         startVelocity: "60",
         elementCount: "90",
         dragFriction: "0.13",
