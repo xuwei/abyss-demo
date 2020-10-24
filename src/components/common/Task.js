@@ -45,7 +45,7 @@ function Task(props) {
         if (showConfetti === true) {
             model.showConfetti = null
         }
-    }, [showConfetti])
+    }, [showConfetti, model.showConfetti])
 
     const column = {
         display: "flex",
