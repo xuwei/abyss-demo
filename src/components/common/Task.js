@@ -70,7 +70,7 @@ function Task(props) {
                             </Box>
                         </Hidden>
                         <Box p={1}>
-                            <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
+                            <Typography align="left" variant="h4" color="primary">{model.descriptions}</Typography>
                         </Box>
                     </Box>
                     <Box {...row} justifyContent="flex-end">
@@ -96,7 +96,7 @@ function Task(props) {
                             </Box>
                         </Hidden>
                         <Box p={1} width="90%">
-                            <TextField fullWidth={true} defaultValue={model.descriptions} onChange={handleTextChange}/>
+                            <TextField InputProps={{style: {fontSize: "2rem"}}} fullWidth={true} defaultValue={model.descriptions} onChange={handleTextChange}/>
                         </Box >
                     </Box>
                     <Box {...row} justifyContent="flex-end">
@@ -122,7 +122,7 @@ function Task(props) {
                             </Box>
                         </Hidden>
                         <Box p={1}>
-                            <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
+                            <Typography align="left" variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                         </Box>
                     </Box>
                     <Box {...row}><Confetti active={showConfetti} config={config} /></Box>
