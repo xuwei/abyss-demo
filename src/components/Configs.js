@@ -35,8 +35,5 @@ const DateFormat = {
     DefaultFormat: "YYYY-MM-DD"
 }
 
-const BorderStyle = "1px solid #303030"
-const DefaultIconFontSize = "small"
-
 export default Configs
-export { DateFormat, StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes, BorderStyle, DefaultIconFontSize }
+export { DateFormat, StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes }

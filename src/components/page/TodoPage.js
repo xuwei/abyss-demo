@@ -27,7 +27,7 @@ function TodoPage() {
 
     const newTaskInput = useRef(null)
     const startEdit = (id) => {
-        updateState(id, StateOfTask.Edit)
+        updateState(id, StateOfTask.Edit, false)
     }
 
     const endEdit = (id, descriptions) => {
@@ -45,11 +45,11 @@ function TodoPage() {
     }
 
     const undoTask = (id) => {
-        updateState(id, StateOfTask.Pending)
+        updateState(id, StateOfTask.Pending, false)
     }
 
     const doneTask = (id) => {
-        updateState(id, StateOfTask.Done)
+        updateState(id, StateOfTask.Done, true)
     }
 
     const toggleTaskState = (id) => {
@@ -68,11 +68,11 @@ function TodoPage() {
         setTasks(currentList)
     }
 
-    const updateState = (id, state) => {
+    const updateState = (id, state, showConfetti) => {
         var currentList = tasks.map((task)=>{ 
             if (task.id === id) {
                 task.state = state
-                
+                task.showConfetti = showConfetti
             }
             return task
         })

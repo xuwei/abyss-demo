@@ -23,6 +23,9 @@ function App() {
           type:  'dark',
           primary: {
             main: '#edff14'
+          },
+          background: {
+            paper: '#424242'
           }
         }
       })

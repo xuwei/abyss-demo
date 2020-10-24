@@ -1,30 +1,51 @@
 import { Hidden, Checkbox, Box, Typography, TextField } from '@material-ui/core'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { loadingContext } from '../context/LoadingContext'
 import { StateOfTask } from '../model/TaskModel'
 import EditIcon from '@material-ui/icons/Edit'
 import DoneIcon from '@material-ui/icons/Done'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import UndoIcon from '@material-ui/icons/Undo'
 import { IconButton } from '@material-ui/core'
-import { BorderStyle, DefaultIconFontSize } from '../Configs'
+import { PaperBackgroundColor, BorderStyle, DefaultIconFontSize } from '../style/CommonStyle'
+import Confetti from 'react-dom-confetti'
 
 function Task(props) {
 
     const model = props.model
-    const [desc, setDesc] = useState(model.descriptions);
-    
+    const [desc, setDesc] = useState(model.descriptions)
+    const [showConfetti, setShowConfetti] = useState(false)
+    const loadingManager = useContext(loadingContext)
+
+    const config = {
+        angle: "360",
+        spread: "180",
+        startVelocity: "60",
+        elementCount: "90",
+        dragFriction: "0.13",
+        duration: 3000,
+        stagger: "3",
+        width: "10px",
+        height: "10px",
+        perspective: "400px",
+        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+    }
+
     const handleTextChange = e => {
         setDesc(e.target.value);
     }
 
     useEffect(() => {
-    }, [])
+        if (model.state === StateOfTask.Done && model.showConfetti !== undefined && model.showConfetti !== null && showConfetti === false && loadingManager.loading === false) {
+            setShowConfetti(true)
+        }
+    }, [model, showConfetti, loadingManager])
 
     const column = {
         display: "flex",
         flexDirection: "column",
         p: 1,
-        m: 0
+        m: 0,
     }
 
     const row = {
@@ -35,11 +56,11 @@ function Task(props) {
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box {...column} borderBottom={BorderStyle}>
+                <Box {...column} bgcolor={PaperBackgroundColor} borderBottom={BorderStyle}>
                     <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
-                                <Checkbox checked={false} onChange={props.checkEvent} onClick={props.toggleTaskState}/>
+                                <Checkbox checked={false} onChange={props.checkEvent} onClick={props.doneTask}/>
                             </Box>
                         </Hidden>
                         <Box p={1}>
@@ -98,6 +119,7 @@ function Task(props) {
                             <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                         </Box>
                     </Box>
+                    <Box {...row}><Confetti active={showConfetti} config={config} /></Box>
                     <Box {...row} justifyContent="flex-end">
                         <Box p={1}>
                             <IconButton onClick={props.undoTask}><UndoIcon fontSize={DefaultIconFontSize}/></IconButton>
