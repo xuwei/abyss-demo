@@ -96,7 +96,7 @@ function Task(props) {
                             </Box>
                         </Hidden>
                         <Box p={1} width="90%">
-                            <TextField InputProps={{style: {fontSize: "2rem"}}} fullWidth={true} defaultValue={model.descriptions} onChange={handleTextChange}/>
+                            <TextField InputProps={{style: {fontSize: "1.2rem"}}} fullWidth={true} defaultValue={model.descriptions} onChange={handleTextChange}/>
                         </Box >
                     </Box>
                     <Box {...row} justifyContent="flex-end">
