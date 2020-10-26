@@ -60,10 +60,15 @@ function Task(props) {
         flexDirection: "row"
     }
 
+    const opacityByIndex = ()=>{
+        const diff = props.index - MaxFocusItems
+        return Math.max(0.5, 0.75 - diff*0.05)
+    }
+
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box {...column} bgcolor={PaperBackgroundColor} style={props.index >= MaxFocusItems ? { opacity : 0.5} : {opacity : 1.0}} borderBottom={BorderStyle}>
+                <Box {...column} bgcolor={PaperBackgroundColor} style={props.index >= MaxFocusItems ? { opacity : opacityByIndex()} : {opacity : 1.0}} borderBottom={BorderStyle}>
                     <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
