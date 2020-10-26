@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Link, Button, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Button, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
@@ -28,10 +28,6 @@ function TodoPage() {
     const dialogManager = useContext(dialogContext)
 
     const newTaskInput = useRef(null)
-
-    const showWiseQuote = () => {
-        // <Typography variant="h6" color="secondary" mx="auto">{quote.quote} - {quote.author}</Typography>
-    }
 
     const startEdit = (id) => {
         updateState(id, StateOfTask.Edit, false)
