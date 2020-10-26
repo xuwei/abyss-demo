@@ -9,6 +9,7 @@ import UndoIcon from '@material-ui/icons/Undo'
 import { IconButton } from '@material-ui/core'
 import { PaperBackgroundColor, BorderStyle, DefaultIconFontSize } from '../style/CommonStyle'
 import Confetti from 'react-dom-confetti'
+import { MaxFocusItems } from '../Configs'
 
 function Task(props) {
 
@@ -62,7 +63,7 @@ function Task(props) {
     switch(model.state) {
         case StateOfTask.Pending:
             return(
-                <Box {...column} bgcolor={PaperBackgroundColor} borderBottom={BorderStyle}>
+                <Box {...column} bgcolor={PaperBackgroundColor} style={props.index >= MaxFocusItems ? { opacity : 0.5} : {opacity : 1.0}} borderBottom={BorderStyle}>
                     <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>
@@ -114,7 +115,7 @@ function Task(props) {
             )
         case StateOfTask.Done:
             return ( 
-                <Box {...column} borderBottom={BorderStyle}>
+                <Box {...column} bgcolor={PaperBackgroundColor} style={props.index >= MaxFocusItems ? { opacity : 0.5} : {opacity : 1.0}} borderBottom={BorderStyle}>
                     <Box {...row}>
                         <Hidden smDown>
                             <Box p={1}>

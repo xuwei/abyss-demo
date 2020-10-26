@@ -35,5 +35,7 @@ const DateFormat = {
     DefaultFormat: "YYYY-MM-DD"
 }
 
+const MaxFocusItems = 3
+
 export default Configs
-export { DateFormat, StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes }
+export { DateFormat, StaticImages, StandardPadding, LargePadding, ContentWidth, StaticRoutes, MaxFocusItems }
