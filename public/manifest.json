@@ -1,5 +1,5 @@
 {
-  "short_name": "Todo Cloud",
+  "short_name": "todocloud.io",
   "name": "Zero friction to your task management",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#edff14",
+  "background_color": "#424242"
 }
