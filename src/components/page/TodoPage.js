@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Button, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Link, Button, Paper, Typography, Box, Container } from '@material-ui/core'
 import LoginPanel from '../common/LoginPanel'
 import { StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import TaskModel, { StateOfTask } from '../model/TaskModel'
@@ -11,12 +11,14 @@ import DialogModel from '../model/DialogModel'
 import uuid from 'react-uuid'
 import Task from '../common/Task'
 import TaskService from '../service/TaskService'
+import WiseQuotesService from '../service/WiseQuotesService'
 import TextInputArea from '../common/TextInputArea'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 // todo page
 function TodoPage() {
     
+    const [quote, setQuote] = useState(null)
     const [notFound, setNotFound] = useState(false)
     const [loading, setLoading] = useState(false)
     const [tasks, setTasks] = useState([])
@@ -26,6 +28,11 @@ function TodoPage() {
     const dialogManager = useContext(dialogContext)
 
     const newTaskInput = useRef(null)
+
+    const showWiseQuote = () => {
+        // <Typography variant="h6" color="secondary" mx="auto">{quote.quote} - {quote.author}</Typography>
+    }
+
     const startEdit = (id) => {
         updateState(id, StateOfTask.Edit, false)
     }
@@ -140,11 +147,12 @@ function TodoPage() {
     }
 
     useEffect(() => {
+
         const fetchData = () => {
             if (userManager.user === null) return
-            
             setLoading(true)
-            TaskService.getUserTasks(userManager.user.uid).then((result) => {
+            TaskService.getUserTasks(userManager.user.uid)
+            .then((result) => {
                 setTasks(result)
             }).catch((error) => {
                 // redirect to error page
@@ -154,7 +162,19 @@ function TodoPage() {
                 setLoading(false)
             })
         }
+
+        const fetchWiseQuote = () => {
+            WiseQuotesService.getWiseQuote().then((quoteModel)=>{
+                debugger;
+                setQuote(quoteModel)
+            }).catch((error)=>{
+                debugger;
+                console.log(error)
+            })
+        }
+
         fetchData()
+        fetchWiseQuote()
     }, [userManager, setLoading, setNotFound])
 
     // this triggers refresh when shapes is updated
@@ -204,12 +224,17 @@ function TodoPage() {
             {(userManager) => (
              userManager.user ?
              <Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Box flexGrow={1} align="center" pt={LargePadding.PY} pb={StandardPadding.PY}>
                     <Typography variant="h2" color="primary" mx="auto" >
                         My Todo List
                     </Typography>
                 </Box>
-                <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <Box flexGrow={1} align="center" pt={0} pb={StandardPadding.PY}>
+                    {quote &&
+                        <Typography color="secondary" variant="subtitle1" underline>{quote.quote} - {quote.author}</Typography>
+                    }
+                </Box>
+                <Box flexGrow={1} align="center" pt={StandardPadding.PY} pb={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="list">

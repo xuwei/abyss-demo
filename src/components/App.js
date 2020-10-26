@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import { createMuiTheme, MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles'
+import { MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Footer from './common/Footer'
 import NavBar from './common/NavBar'
@@ -15,21 +15,11 @@ import Auth from './Auth'
 import LoadingIndicator from './LoadingIndicator'
 import ArchivePage from './page/ArchivePage';
 import { hotjar } from 'react-hotjar'
+import { DefaultTheme } from './style/CommonStyle'
 
 function App() {
 
-  var defaultTheme = createMuiTheme({
-        palette: {
-          type:  'dark',
-          primary: {
-            main: '#edff14'
-          },
-          background: {
-            paper: '#424242'
-          }
-        }
-      })
-  
+  var defaultTheme = DefaultTheme
   defaultTheme = responsiveFontSizes(defaultTheme);
   hotjar.initialize(2056601, 6)
   return (

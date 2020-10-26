@@ -3,8 +3,8 @@ const QuotesType = {
 }
 
 class WiseQuotesModel {
-    constructor(quotes, author) {
-        this.quotes = quotes 
+    constructor(quote, author) {
+        this.quote = quote 
         this.author = author
     }
 }
