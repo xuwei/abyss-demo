@@ -62,7 +62,7 @@ function Task(props) {
 
     const opacityByIndex = ()=>{
         const diff = props.index - MaxFocusItems
-        return Math.max(0.5, 0.75 - diff*0.05)
+        return Math.max(0.45, 0.65 - diff*0.025)
     }
 
     switch(model.state) {
