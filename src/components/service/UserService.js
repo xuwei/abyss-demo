@@ -119,5 +119,5 @@ const fetchUser = ()=> {
 }
 
 export default { fetchUser, subscribedPlan,  loginGmail, loginFb, loginAnonymously, 
-    logout, currentProvider }
+    logout, currentProvider, linkAnonymousToProvider }
 export { ProviderType }

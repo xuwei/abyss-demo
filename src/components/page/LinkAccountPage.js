@@ -11,7 +11,7 @@ import { ProviderType } from '../service/UserService'
 // todo page
 function LinkAccountPage() {
     
-    const [notFound] = useState(false)
+    const [notFound, setNotFound] = useState(false)
     const [loading, setLoading] = useState(false)
     const [provider, setProvider] = useState(null)
  
@@ -20,22 +20,17 @@ function LinkAccountPage() {
 
     useEffect(()=>{
         if (userManager === null) {
-            setLoading(true)
+            setNotFound(true)
         } else {
-            setLoading(false)
+            setNotFound(false)
         }
-    }, [userManager, setLoading])
-
-    useEffect(()=>{
-        // const currentProvider = UserService.currentProvider()
-        // setProvider(currentProvider)
-    },[])
+    }, [userManager])
 
     useEffect(() => {
         loadingManager.updateLoadingIndicator(loading)
     }, [loading, loadingManager])
 
-    if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
+    if (userManager === null) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={StandardPadding.PY}>
