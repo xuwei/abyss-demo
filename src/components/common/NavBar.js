@@ -27,27 +27,6 @@ function NavBar() {
         setAnchorEl(null)
     }
 
-    // const deleteArchivedTask = (dateString, taskId)=> {
-    //     if (userManager.user === null) return 
-    //     if (dateString === null) return
-    //     if (taskId === null) return 
-
-    //     const uid = userManager.user.uid
-    //     const dialog = new DialogModel("Message", "Delete task permanently ?", "Ok", "Cancel")
-    //     dialog.callback = ()=> { 
-    //         setLoading(true)
-    //         TaskService.deleteArchivedTask(uid, dateString, taskId).then(()=>{
-    //             const newArchives = removeTaskFromArchive(dateString, taskId)
-    //             setArchives(newArchives)
-    //         }).catch((error)=>{
-    //             console.log(error)
-    //         }).finally(()=>{
-    //             setLoading(false)
-    //         })
-    //     }
-    //     dialogManager.updateDialogMsg(dialog)
-    // }
-
     const linkAccount = () => {
         if (auth === null) return
         const provider = new firebase.auth.GoogleAuthProvider();
