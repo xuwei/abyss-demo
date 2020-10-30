@@ -16,9 +16,9 @@ import LoadingIndicator from './LoadingIndicator'
 import ArchivePage from './page/ArchivePage';
 import { hotjar } from 'react-hotjar'
 import { DefaultTheme } from './style/CommonStyle'
+import LinkAccountPage from './page/LinkAccountPage';
 
 function App() {
-
   var defaultTheme = DefaultTheme
   defaultTheme = responsiveFontSizes(defaultTheme);
   hotjar.initialize(2056601, 6)
@@ -39,6 +39,7 @@ function App() {
             <Route exact path="/privacy" component={PrivacyPage}/>
             <Route exact path="/terms" component={TermsAndServicesPage}/>
             <Route exact path="/404" component={NotFoundPage}/>
+            <Route exact path="/linkAccount" component={LinkAccountPage}/>
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />
@@ -51,4 +52,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

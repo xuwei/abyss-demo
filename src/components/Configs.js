@@ -12,6 +12,7 @@ const StaticRoutes = {
     TEAM: '/team',
     PRIVACY: '/privacy',
     TERMS: '/terms',
+    LINK_ACCOUNT: '/linkAccount',
     NOT_FOUND: '/404',
     CONTACT_EMAIL: 'mailto:support@wisetreeapps.com'
 }

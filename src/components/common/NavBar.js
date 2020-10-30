@@ -4,18 +4,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import UserService, { ProviderType } from '../service/UserService'
 import { userContext }  from '../context/UserContext'
 import { loadingContext } from '../context/LoadingContext'
-import { dialogContext } from '../context/DialogContext'
 import { reactLocalStorage } from 'reactjs-localstorage'
-import DialogModel from '../model/DialogModel'
-import firebase from '../../Firebase.js'
-import { auth } from '../../Firebase.js'
+import { StaticRoutes } from '../Configs';
+import LinkIcon from '@material-ui/icons/Link';
 
 function NavBar() {
 
     const userManager = useContext(userContext)
     const loadingManager = useContext(loadingContext)
-    const dialogManager = useContext(dialogContext)
-
     const [anchorEl, setAnchorEl] = useState(null)
     const [provider, setProvider] = useState(null)
 
@@ -25,18 +21,6 @@ function NavBar() {
 
     const handleMenuDismiss = () => {
         setAnchorEl(null)
-    }
-
-    const linkAccount = () => {
-        if (auth === null) return
-        const provider = new firebase.auth.GoogleAuthProvider();
-        UserService.linkAccount(provider).then((result)=>{
-
-        }).catch((error)=>{
-            const dialog = new DialogModel("Error", error.message, "Ok")
-            dialogManager.updateDialogMsg(dialog)
-        })
-        
     }
 
     const logout = () => {
@@ -107,9 +91,12 @@ function NavBar() {
                         </Box>
                         :
                         <Box>
-                            <Button color="primary" size="small" varianet="contained" onClick={linkAccount}>
-                                <Typography variant="body1" >Link</Typography>
-                            </Button>
+                            <Typography variant="caption">
+                                {userManager.user.displayName ? userManager.user.displayName : "Guest"}
+                            </Typography>
+                            <Link href={StaticRoutes.LINK_ACCOUNT} style={{verticalAlign: "middle"}}>
+                                <LinkIcon fontSize="large"/>
+                            </Link>
                             <Button size="small" varianet="contained" onClick={logout}>
                                 Sign out
                             </Button>
