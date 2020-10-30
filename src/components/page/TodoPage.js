@@ -161,10 +161,8 @@ function TodoPage() {
 
         const fetchWiseQuote = () => {
             WiseQuotesService.getWiseQuote().then((quoteModel)=>{
-                debugger;
                 setQuote(quoteModel)
             }).catch((error)=>{
-                debugger;
                 console.log(error)
             })
         }

@@ -4,25 +4,13 @@ import { StateOfTask } from '../model/TaskModel'
 import DeleteIcon from '@material-ui/icons/Delete'
 import RestoreIcon from '@material-ui/icons/Restore'
 import { IconButton } from '@material-ui/core'
-import { DefaultIconFontSize } from '../style/CommonStyle'
+import { DefaultIconFontSize, row, column } from '../style/CommonStyle'
 
 function ATask(props) {
     const model = props.model
 
     useEffect(() => {
     }, [])
-   
-    const column = {
-        display: "flex",
-        flexDirection: "column",
-        p: 1,
-        m: 0
-    }
-
-    const row = {
-        display: "flex",
-        flexDirection: "row"
-    }
 
     switch(model.state) {
         case StateOfTask.Pending:

@@ -42,7 +42,6 @@ function ArchivePage() {
     }
 
     const removeTaskFromArchive = (dateString, taskId) => {
-        debugger;
         var newArchives = archives
         const index = findArchiveModelIndex(dateString)
         var updatedArchive = newArchives[index]

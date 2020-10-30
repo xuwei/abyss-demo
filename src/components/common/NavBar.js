@@ -1,16 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { LinearProgress, Link, Menu, MenuItem, Box, Button, Typography, Toolbar, AppBar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
-import UserService from '../service/UserService'
+import UserService, { ProviderType } from '../service/UserService'
 import { userContext }  from '../context/UserContext'
 import { loadingContext } from '../context/LoadingContext'
+import { dialogContext } from '../context/DialogContext'
 import { reactLocalStorage } from 'reactjs-localstorage'
+import DialogModel from '../model/DialogModel'
+import firebase from '../../Firebase.js'
+import { auth } from '../../Firebase.js'
 
 function NavBar() {
 
     const userManager = useContext(userContext)
     const loadingManager = useContext(loadingContext)
+    const dialogManager = useContext(dialogContext)
+
     const [anchorEl, setAnchorEl] = useState(null)
+    const [provider, setProvider] = useState(null)
 
     const handleMenuPopup = (e) => {
         setAnchorEl(e.currentTarget)
@@ -20,20 +27,53 @@ function NavBar() {
         setAnchorEl(null)
     }
 
+    // const deleteArchivedTask = (dateString, taskId)=> {
+    //     if (userManager.user === null) return 
+    //     if (dateString === null) return
+    //     if (taskId === null) return 
+
+    //     const uid = userManager.user.uid
+    //     const dialog = new DialogModel("Message", "Delete task permanently ?", "Ok", "Cancel")
+    //     dialog.callback = ()=> { 
+    //         setLoading(true)
+    //         TaskService.deleteArchivedTask(uid, dateString, taskId).then(()=>{
+    //             const newArchives = removeTaskFromArchive(dateString, taskId)
+    //             setArchives(newArchives)
+    //         }).catch((error)=>{
+    //             console.log(error)
+    //         }).finally(()=>{
+    //             setLoading(false)
+    //         })
+    //     }
+    //     dialogManager.updateDialogMsg(dialog)
+    // }
+
+    const linkAccount = () => {
+        if (auth === null) return
+        const provider = new firebase.auth.GoogleAuthProvider();
+        UserService.linkAccount(provider).then((result)=>{
+
+        }).catch((error)=>{
+            const dialog = new DialogModel("Error", error.message, "Ok")
+            dialogManager.updateDialogMsg(dialog)
+        })
+        
+    }
+
     const logout = () => {
         UserService.logout().then(()=> {
             userManager.updateUser(null)
+            setProvider(null)
             reactLocalStorage.clear()
-            
         })
     }
 
     useEffect(()=>{
-    },[])
-
-    if (userManager.user !== null) {
-
-    }
+        if (userManager.user !== null) {
+            const provider = UserService.currentProvider()
+            setProvider(provider)
+        }
+    },[userManager.user])
 
     return (
         <AppBar color="transparent" position="static">
@@ -75,14 +115,28 @@ function NavBar() {
                 </Box>
                 { 
                     userManager.user &&
-                    <Box>
-                        <Typography variant="caption">
-                            {userManager.user.displayName ? userManager.user.displayName : "Guest"}
-                        </Typography>
-                        <Button size="small" varianet="contained" onClick={logout}>
-                            Sign out
-                        </Button>
-                    </Box>
+                    <div>
+                    {
+                        provider !== ProviderType.GUEST ?
+                        <Box>
+                            <Typography variant="caption">
+                                {userManager.user.displayName ? userManager.user.displayName : "Guest"}
+                            </Typography>
+                            <Button size="small" varianet="contained" onClick={logout}>
+                                Sign out
+                            </Button>
+                        </Box>
+                        :
+                        <Box>
+                            <Button color="primary" size="small" varianet="contained" onClick={linkAccount}>
+                                <Typography variant="body1" >Link</Typography>
+                            </Button>
+                            <Button size="small" varianet="contained" onClick={logout}>
+                                Sign out
+                            </Button>
+                        </Box>
+                    }
+                    </div>
                 }
             </Toolbar>
             { loadingManager.loading ? <LinearProgress/> : <Box/> }

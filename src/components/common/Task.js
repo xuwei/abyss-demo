@@ -10,6 +10,7 @@ import { IconButton } from '@material-ui/core'
 import { PaperBackgroundColor, BorderStyle, DefaultIconFontSize } from '../style/CommonStyle'
 import Confetti from 'react-dom-confetti'
 import { MaxFocusItems } from '../Configs'
+import { row, column } from '../style/CommonStyle'
 
 function Task(props) {
 
@@ -47,18 +48,6 @@ function Task(props) {
             model.showConfetti = null
         }
     }, [showConfetti, model.showConfetti])
-
-    const column = {
-        display: "flex",
-        flexDirection: "column",
-        p: 1,
-        m: 0,
-    }
-
-    const row = {
-        display: "flex",
-        flexDirection: "row"
-    }
 
     const opacityByIndex = ()=>{
         const diff = props.index - MaxFocusItems

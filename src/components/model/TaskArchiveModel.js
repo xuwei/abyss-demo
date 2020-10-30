@@ -14,10 +14,8 @@ class TaskArchieveModel {
     }
 
     deleteArchivedTask = (taskId) => {
-        debugger;
         const filteredTasks = this.tasks.filter((task) => { return task.id !== taskId})
         this.tasks = filteredTasks
-        debugger;
         return this
     }
 }

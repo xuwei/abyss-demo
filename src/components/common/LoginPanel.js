@@ -13,7 +13,7 @@ function LoginPanel(props) {
 
     const userManager = useContext(userContext)
     const login = () => {
-        UserService.login().then((loggedInUser) => {
+        UserService.loginGmail().then((loggedInUser) => {
             // use context obj's callback method to update user 
             userManager.updateUser(loggedInUser)
         }).catch((error) => {

@@ -14,10 +14,22 @@ const DefaultTheme = createMuiTheme({
     }
 })
 
+const column = {
+  display: "flex",
+  flexDirection: "column",
+  p: 1,
+  m: 0,
+}
+
+const row = {
+  display: "flex",
+  flexDirection: "row"
+}
+
 
 const BorderStyle = "1px solid #303030"
 const DefaultIconFontSize = "small"
 const PaperBackgroundColor = "#424242"
 
 export default CommonStyle
-export { BorderStyle, DefaultIconFontSize, PaperBackgroundColor, DefaultTheme }
+export { BorderStyle, DefaultIconFontSize, PaperBackgroundColor, DefaultTheme, row, column }
