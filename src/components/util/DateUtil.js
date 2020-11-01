@@ -5,7 +5,7 @@ const moment = extendMoment(Moment);
 
 
 const yyyyMMdd = (date)=> {
-    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate())
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + ("0" + date.getDate()).slice(-2)
 }
 
 const datesByRange = (from, to) => {

@@ -169,7 +169,7 @@ function TodoPage() {
 
         fetchData()
         fetchWiseQuote()
-    }, [userManager, setLoading, setNotFound])
+    }, [userManager, setLoading, setNotFound, setTasks, setQuote])
 
     // this triggers refresh when shapes is updated
     useEffect(() => {
@@ -191,7 +191,7 @@ function TodoPage() {
         loadingManager.updateLoadingIndicator(loading)
     }, [loading, loadingManager])
 
-    const TaskList = React.memo(function TaskList({ taskList }) {
+    const TaskList = ({ taskList })=> {
         return taskList.map((taskModel, index) => (
             <Draggable key={taskModel.id} draggableId={taskModel.id} index={index}>
             {(provided) => (
@@ -209,7 +209,7 @@ function TodoPage() {
             )}
             </Draggable>
         ))
-    })
+    }
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
     return (
