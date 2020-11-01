@@ -1,21 +1,33 @@
 
 import React, { useContext } from 'react'
+import { useHistory } from "react-router-dom"
 import { Paper, Box, Typography } from '@material-ui/core'
 import GoogleButton from 'react-google-button'
 import FacebookLoginButton from '../common/FacebookLoginButton'
 import UserService from '../service/UserService'
 import MessageUtil from '../util/MessageUtil'
 import { userContext } from '../context/UserContext'
-import { StandardPadding } from '../Configs'
+import { StandardPadding, StaticRoutes } from '../Configs'
+import { googleProvider } from '../../Firebase'
+import { dialogContext } from '../context/DialogContext'
+import DialogModel from '../model/DialogModel'
+
 
 function LinkPanel(props) {
 
+    const history = useHistory()
     const userManager = useContext(userContext)
+    const dialogManager = useContext(dialogContext)
     const linkGmail = () => {
-        UserService.loginGmail().then((loggedInUser) => {
-            // use context obj's callback method to update user 
+
+        const provider = googleProvider()
+        UserService.linkAnonymousToProvider(provider).then((result)=>{
+            var loggedInUser = result.user 
             userManager.updateUser(loggedInUser)
-        }).catch((error) => {
+            history.push(StaticRoutes.TODO)
+        }).catch((error)=> {
+            const dialog = new DialogModel("Message", error.message, "Ok")
+            dialogManager.updateDialogMsg(dialog)
             MessageUtil.messagePopup(error)
         })
     }

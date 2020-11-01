@@ -1,4 +1,4 @@
-import { auth, provider, fbProvider } from '../../Firebase.js';
+import { auth, googleProvider, fbProvider } from '../../Firebase.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 const ProviderType = {
@@ -6,7 +6,6 @@ const ProviderType = {
     GUEST : "anonymous",
     GOOGLE : "google.com",
     FACEBOOK : "facebook.com"
-
 }
 
 const subscribedPlan = ()=> {
@@ -32,7 +31,6 @@ const loginFb = ()=> {
                 reject(error)
                 return
             }
-
             const loggedInUser = result.user
             reactLocalStorage.setObject('user', loggedInUser)
             resolve(loggedInUser)
@@ -42,7 +40,6 @@ const loginFb = ()=> {
 
 const loginAnonymously = ()=> {
     return new Promise((resolve, reject) => {
-
         auth.signInAnonymously().then((result, error) => {
             if (error) {
                 reject(error)
@@ -58,9 +55,6 @@ const loginAnonymously = ()=> {
 const linkAnonymousToProvider = (provider)=> {
     return new Promise((resolve, reject) => {
         auth.currentUser.linkWithPopup(provider).then((result)=>{
-            var credential = result.credential
-            var user = result.user
-            debugger;
             resolve(result)
         }).catch((error)=>{
             reject(error)
@@ -70,14 +64,12 @@ const linkAnonymousToProvider = (provider)=> {
 
 const loginGmail = ()=> {
     return new Promise((resolve, reject) => {
-        auth.signInWithPopup(provider).then((result, error) => {
+        auth.signInWithPopup(googleProvider()).then((result, error) => {
             if (error) {
                 reject(error)
                 return
             }
             const loggedInUser = result.user
-            var provider = currentProvider()
-            debugger;
             reactLocalStorage.setObject('user', loggedInUser)
             resolve(loggedInUser)
         })

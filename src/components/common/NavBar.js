@@ -105,7 +105,7 @@ function NavBar() {
                     </div>
                 }
             </Toolbar>
-            { loadingManager.loading ? <LinearProgress/> : <Box/> }
+            { loadingManager.loading ? <LinearProgress/> : <LinearProgress variant="determinate" value={0} style={{opacity: 0}}/> }
         </AppBar>
     )
 }

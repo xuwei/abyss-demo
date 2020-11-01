@@ -5,25 +5,15 @@ import { loadingContext } from '../context/LoadingContext'
 import { Box, Container } from '@material-ui/core'
 import LinkPanel from '../common/LinkPanel'
 import { StaticRoutes, StandardPadding } from '../Configs'
-import UserService from '../../Firebase'
-import { ProviderType } from '../service/UserService'
 
 // todo page
 function LinkAccountPage() {
     
-    const [notFound, setNotFound] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [provider, setProvider] = useState(null)
- 
+    const [loading] = useState(false)
     const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
 
     useEffect(()=>{
-        if (userManager === null) {
-            setNotFound(true)
-        } else {
-            setNotFound(false)
-        }
     }, [userManager])
 
     useEffect(() => {
