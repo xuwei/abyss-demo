@@ -59,7 +59,7 @@ function LoginPanel(props) {
                     <AnonymousLoginButton onClick={loginAnonymously}/><br/>
                 </Box>
                 <Box px={0} pb={StandardPadding.PY}>
-                    <Typography variant="subtitle">For test use only. Please use social login for long term cloud data.</Typography>
+                    <Typography variant="subtitle">For test use only. Please use social login for persistent cloud data.</Typography>
                 </Box>
             </Box>
         </Paper>
