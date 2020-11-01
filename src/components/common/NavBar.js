@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { LinearProgress, Link, Menu, MenuItem, Box, Button, Typography, Toolbar, AppBar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import UserService, { ProviderType } from '../service/UserService'
@@ -9,7 +10,7 @@ import { StaticRoutes } from '../Configs';
 import LinkIcon from '@material-ui/icons/Link';
 
 function NavBar() {
-
+    const history = useHistory()
     const userManager = useContext(userContext)
     const loadingManager = useContext(loadingContext)
     const [anchorEl, setAnchorEl] = useState(null)
@@ -28,6 +29,8 @@ function NavBar() {
             userManager.updateUser(null)
             setProvider(null)
             reactLocalStorage.clear()
+        }).finally(()=>{
+            history.push(StaticRoutes.HOME)
         })
     }
 

@@ -23,6 +23,7 @@ function LinkPanel(props) {
         const provider = googleProvider()
         UserService.linkAnonymousToProvider(provider).then((result)=>{
             var loggedInUser = result.user 
+            userManager.user.displayName = loggedInUser.displayName
             userManager.updateUser(loggedInUser)
             history.push(StaticRoutes.TODO)
         }).catch((error)=> {
