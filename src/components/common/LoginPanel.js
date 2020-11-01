@@ -46,17 +46,20 @@ function LoginPanel(props) {
                     {props.title}
                 </Typography>
                 </Box>
-                <Box px={0} py={StandardPadding.PY}>
-                    <AnonymousLoginButton onClick={loginAnonymously}/>
-                </Box>
-                <Box px={0} py={StandardPadding.PY}>
-                    <Typography variant="h5">OR</Typography>
-                </Box>
-                <Box px={0} py={StandardPadding.PY}>
+                <Box px={0} pb={StandardPadding.PY}>
                     <GoogleButton type="dark" onClick={login}/>
                 </Box>
                 <Box px={0} py={StandardPadding.PY} hidden={true}>
                     <FacebookLoginButton appId="" onClick={loginFB}/>
+                </Box>
+                <Box px={0} pb={StandardPadding.PY}>
+                    <Typography variant="h5">OR</Typography>
+                </Box>
+                <Box px={0} pb={StandardPadding.PY}>
+                    <AnonymousLoginButton onClick={loginAnonymously}/><br/>
+                </Box>
+                <Box px={0} pb={StandardPadding.PY}>
+                    <Typography variant="subtitle">For test use only. Please use social login for long term cloud data.</Typography>
                 </Box>
             </Box>
         </Paper>
