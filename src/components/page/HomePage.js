@@ -14,6 +14,7 @@ function HomePage() {
         <Container>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                    <img src="./google-cloud-logo.png" alt="built with google cloud"/>
                     <Typography variant="h2" color="primary" mx="auto" >
                         Manage your todo list in the cloud
                     </Typography>
