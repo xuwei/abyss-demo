@@ -19,6 +19,18 @@ function Task(props) {
     const [showConfetti, setShowConfetti] = useState(false)
     const loadingManager = useContext(loadingContext)
 
+    const randomColors = ()=> {
+        const defaultPool = ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+        const geometricGlowPool = ["#08f7fe", "#09fbd3", "#fe53bb", "#f5d300"]
+        const neonLightsPool = ["#ffacfc", "#f148fb", "#7122fa", "#560a86"]
+        const colorSet4 = ["#ff5cd5", "#7b41e0", "#649ef5", "#50dec7", "#baf8bc"]
+        const colorSet5 = ["#0dfff0", "#1be083", "#00f51d", "#57de0b", "#e2fa4f"]
+        const colorSet6 = ["#a008ff", "#3909e0", "#1339f5", "#077dde", "#64effa"]
+        const colorPools = [defaultPool, geometricGlowPool, neonLightsPool, colorSet4, colorSet5, colorSet6]
+        const randIndex = Math.floor(Math.random() * colorPools.length)
+        return colorPools[randIndex]
+    }
+
     const config = {
         angle: "360",
         spread: "360",
@@ -30,7 +42,7 @@ function Task(props) {
         width: "10px",
         height: "10px",
         perspective: "400px",
-        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+        colors: randomColors()
     }
 
     const handleTextChange = e => {
