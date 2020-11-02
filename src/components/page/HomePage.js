@@ -17,7 +17,7 @@ function HomePage() {
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Box py={StandardPadding.PY}>
                     <Hidden mdUp>
-                        <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
+                        <img src={StaticImages.googleCloudLogo160} alt="built with google cloud"/>
                     </Hidden>
                     <Hidden smDown>
                         <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
