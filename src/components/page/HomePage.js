@@ -46,7 +46,7 @@ function HomePage() {
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    "Easy to use, back to first principle with productivity tools. Filtering out noises is especially important for me when I have to work from home."
+                                    "Easy to use, back to first principle with productivity tools. Filtering out noises was especially important for me when I had to work from home."
                                 </Typography>
                                 <Box pt={StandardPadding.PX}>
                                     <Avatar alt="Rob" src={StaticImages.user01}/>
@@ -84,7 +84,7 @@ function HomePage() {
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    "Helps me organise and analyse completed tasks. I felt alot more encouraged revising small daily progress I made than overwhelmed by giant goals."
+                                    "Helps me to organise my completed tasks. I felt encouraged revising daily progress I've achieved."
                                 </Typography>
                                 <Box pt={StandardPadding.PX}>
                                     <Avatar alt="Elizabeth" src={StaticImages.user03}/>
@@ -118,7 +118,7 @@ function HomePage() {
                         <Paper variant="outlined">
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    "Everyone ends up with a todo list that's seems unrealistic. TodoCloud keeps me on track on what's possible TODAY !!!"
+                                    "Alot of people ends up with an unrealistic list of todo items. TodoCloud keeps me on track on what's possible TODAY !!!"
                                 </Typography>
                                 <Box pt={StandardPadding.PX}>
                                     <Avatar alt="Emma" src={StaticImages.user04}/>
@@ -133,7 +133,7 @@ function HomePage() {
                         <Paper variant="outlined">
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    "WFH has been stressful for me and my team. Eventually, we decided to simplify tasking as much as I can with todocloud."
+                                    "WFH has been so stressful for me and my team. Eventually, we decided to simplify tasking as much as we can with todocloud."
                                 </Typography>
                                 <Box pt={StandardPadding.PX}>
                                     <Avatar alt="Elizabeth" src={StaticImages.user06}/>
