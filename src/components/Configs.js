@@ -14,7 +14,8 @@ const StaticImages = {
     user07: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser07.jpeg?alt=media&token=b1c440fc-016a-46f2-9dd1-a3890099bec4',
     user08: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser08.jpeg?alt=media&token=a0efd6a0-54e6-4686-8ee3-b8cb98fafa02',
     user09: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser09.jpeg?alt=media&token=75bce22c-2bef-49fe-bdc6-9eb7907af5b7',
-    user10: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser10.jpeg?alt=media&token=5098f33a-dff4-4784-a9c4-08ecac52085e'
+    user10: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser10.jpeg?alt=media&token=5098f33a-dff4-4784-a9c4-08ecac52085e',
+    user11: 'https://firebasestorage.googleapis.com/v0/b/abyss-todo.appspot.com/o/public%2Fusers%2Fuser11.jpg?alt=media&token=dd2dfb16-291a-4fc5-b642-b51a9f7d8eed'
 }
 
 const StaticRoutes = {

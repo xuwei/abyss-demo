@@ -4,6 +4,10 @@ import { StaticImages } from '../Configs'
 const getFeedbacks = ()=> {
     var feedbacks = []
 
+    const user11 = new FeedbackModel("I never felt like using any todo apps until I found Todocloud. I just love the minimalistic design.",
+    StaticImages.user11, "Claudia", "Financial expert")
+    feedbacks.push(user11)
+
     const user02 = new FeedbackModel("This is just so intuitive! I don't need to fiddle around too much, just focus on my school work.",
     StaticImages.user02, "Ezequiel", "Law student")
     feedbacks.push(user02)
