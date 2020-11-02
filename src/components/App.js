@@ -7,6 +7,7 @@ import NavBar from './common/NavBar'
 import HomePage from './page/HomePage'
 import TeamPage from './page/TeamPage'
 import TodoPage from './page/TodoPage'
+import StreamPage from './page/StreamPage'
 import PrivacyPage from './page/PrivacyPage';
 import TermsAndServicesPage from './page/TermsAndServicesPage';
 import NotFoundPage from './page/NotFoundPage'
@@ -34,6 +35,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/todo" component={TodoPage}/>
+            <Route exact path="/stream" component={StreamPage}/>
             <Route exact path="/archive" component={ArchivePage}/>
             <Route exact path="/team" component={TeamPage}/>
             <Route exact path="/privacy" component={PrivacyPage}/>
