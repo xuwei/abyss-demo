@@ -18,12 +18,14 @@ function HomePage() {
         <Container>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
+                    <Box py={StandardPadding.PY}>
                     <Hidden mdUp>
                         <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
                     </Hidden>
                     <Hidden smDown>
                         <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
                     </Hidden>
+                    </Box>
                     <Typography variant="h2" color="primary" mx="auto" >
                         Centralise, organise and analyse
                     </Typography>
@@ -98,7 +100,7 @@ function HomePage() {
                 </Grid>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
-                <GridList cols={2.5} style={{ flexWrap: 'nowrap', transform: 'translateZ(0)'}}>
+                <GridList cols={2.5} style={{ flexWrap: 'nowrap', transform: 'translateZ(0)'}} spacing={StandardPadding.PX * 10}>
                     <GridListTile item xs={ContentWidth.SM} md={ContentWidth.MD} style={autoHeight}>
                         <Paper variant="outlined">
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
