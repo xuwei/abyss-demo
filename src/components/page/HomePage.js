@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Redirect } from "react-router-dom"
-import { Link, Hidden, Grid, Button, Paper, Typography, Box, Container } from '@material-ui/core'
+import { Avatar, Hidden, Grid, GridList, GridListTile, Button, Paper, Typography, Box, Container } from '@material-ui/core'
 import { StaticImages, StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import { userContext } from '../context/UserContext'
 
@@ -8,19 +8,27 @@ import { userContext } from '../context/UserContext'
 function HomePage() {
     
     const userManager = useContext(userContext)
+    const autoHeight = {
+        display: 'flex', 
+        height: 'auto'
+    }
 
     if (userManager.user !== null) return (<Redirect to={StaticRoutes.TODO}/>)
     return (
         <Container>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
-                    <img src="./google-cloud-logo.png" alt="built with google cloud"/>
+                    <Hidden mdUp>
+                        <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
+                    </Hidden>
+                    <Hidden smDown>
+                        <img src={StaticImages.googleCloudLogo320} alt="built with google cloud"/>
+                    </Hidden>
                     <Typography variant="h2" color="primary" mx="auto" >
-                        Manage your todo list in the cloud
+                        Centralise, organise and analyse
                     </Typography>
                     <Typography variant="h5" color="textPrimary" mx="auto">
-                        Minimise overhead of managing tasks<br/>
-                        Simple, practical design<br/>
+                        Filter out noises from complicated tasking tools<br/>
                     </Typography>
                     <Box py={LargePadding.PY}>
                         <Button size="large" href={StaticRoutes.TODO} variant="contained" color="primary" my={4}>Get started</Button>
@@ -38,13 +46,14 @@ function HomePage() {
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    Easy to use. Leverage on state of art platform. Encrypted storage
+                                    "Easy to use, back to first principle with productivity tools. Filtering out noises is especially important for me when I have to work from home."
                                 </Typography>
-                                <Typography variant="h6">
-                                    <Link href={StaticRoutes.TODO} color="primary">
-                                        Try it now
-                                    </Link>
-                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Rob" src={StaticImages.user01}/>
+                                    <Typography variant="body1">
+                                        Rob - Developer
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Paper>
                     </Grid>
@@ -75,41 +84,107 @@ function HomePage() {
                             </Box>
                             <Box px={StandardPadding.PX} py={LargePadding.PY}>
                                 <Typography variant="body1">
-                                    Say good bye to overly complicated UI/UX for task management tools.
+                                    "Helps me organise and analyse completed tasks. I felt alot more encouraged revising small daily progress I made than overwhelmed by giant goals."
                                 </Typography>
-                                <Typography variant="h6">
-                                    <Link href={StaticRoutes.TODO} color="primary">
-                                        Try it now
-                                    </Link>
-                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Elizabeth" src={StaticImages.user03}/>
+                                    <Typography variant="body1">
+                                        Elizabeth - Accountant
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Paper>
                     </Grid>
                 </Grid>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
+                <GridList cols={2.5} style={{ flexWrap: 'nowrap', transform: 'translateZ(0)'}}>
+                    <GridListTile item xs={ContentWidth.SM} md={ContentWidth.MD} style={autoHeight}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    "This is just so intuitive! I don't need to fiddle around too much, just focus on my school work."
+                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Ezequiel" src={StaticImages.user02}/>
+                                    <Typography variant="body1">
+                                        Ezequiel - Law student
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Paper>
+                    </GridListTile>
+                    <GridListTile item xs={ContentWidth.SM} md={ContentWidth.MD} style={autoHeight}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    "Everyone ends up with a todo list that's seems unrealistic. TodoCloud keeps me on track on what's possible TODAY !!!"
+                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Emma" src={StaticImages.user04}/>
+                                    <Typography variant="body1">
+                                        Emma - Business consultant
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Paper>
+                    </GridListTile>
+                    <GridListTile item xs={ContentWidth.SM} md={ContentWidth.MD} style={autoHeight}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    "WFH has been stressful for me and my team. Eventually, we decided to simplify tasking as much as I can with todocloud."
+                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Elizabeth" src={StaticImages.user06}/>
+                                    <Typography variant="body1">
+                                        Michael - Product manager
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Paper>
+                    </GridListTile>
+                    <GridListTile item xs={ContentWidth.SM} md={ContentWidth.MD} style={autoHeight}>
+                        <Paper variant="outlined">
+                            <Box px={StandardPadding.PX} py={LargePadding.PY}>
+                                <Typography variant="body1">
+                                    "I just can't be bothered to waste time on fancy software. Glad I found todocloud."
+                                </Typography>
+                                <Box pt={StandardPadding.PX}>
+                                    <Avatar alt="Anastasia" src={StaticImages.user05}/>
+                                    <Typography variant="body1">
+                                        Anastasia - Personal trainer
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Paper>
+                    </GridListTile>
+                </GridList>
+            </Box>
+            <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Typography variant="h5">
-                    Zero friction to your productivity with intuitive design and features.
+                    "Until we can manage time, we can manage nothing else."<br/>
+                    - Peter Drucker, management consultant
                 </Typography>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Typography variant="h2" color="primary">
                         Features
-                        </Typography>
+                    </Typography>
                     <Box py={LargePadding.PY}>
                         <Paper variant="outlined">
                             <Box py={LargePadding.PY}>
-                                <Typography variant="h6">Built with Scalability</Typography>
-                            </Box>
-                            <Box pb={LargePadding.PY}>
-                                <Typography variant="h6">Customisable to your flavor</Typography>
+                                <Typography variant="h6">Built with Google Cloud</Typography>
                             </Box>
                             <Box pb={LargePadding.PY}>
                                 <Typography variant="h6">Zero learning curve</Typography>
                             </Box>
                             <Box pb={LargePadding.PY}>
                                 <Typography variant="h6">Automatically encrypt your stored data</Typography>
+                            </Box>
+                            <Box pb={LargePadding.PY}>
+                                <Typography color="primary" variant="h6"><span style={{ textDecoration : 'line-through'}}>$47/yr</span> FREE - Limited Time !!!</Typography>
                             </Box>
                         </Paper>
                     </Box>
