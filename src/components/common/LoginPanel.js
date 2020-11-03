@@ -52,13 +52,13 @@ function LoginPanel(props) {
                 <Box px={0} py={StandardPadding.PY} hidden={true}>
                     <FacebookLoginButton appId="" onClick={loginFB}/>
                 </Box>
-                <Box px={0} pb={StandardPadding.PY}>
+                <Box hidden px={0} pb={StandardPadding.PY}>
                     <Typography variant="h5">OR</Typography>
                 </Box>
-                <Box px={0} pb={StandardPadding.PY}>
+                <Box hidden px={0} pb={StandardPadding.PY}>
                     <AnonymousLoginButton onClick={loginAnonymously}/><br/>
                 </Box>
-                <Box px={0} pb={StandardPadding.PY}>
+                <Box hidden px={0} pb={StandardPadding.PY}>
                     <Typography variant="subtitle">For test use only. Please use social login for persistent cloud data.</Typography>
                 </Box>
             </Box>
