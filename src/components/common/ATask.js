@@ -1,4 +1,4 @@
-import { Checkbox, Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { StateOfTask } from '../model/TaskModel'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -18,9 +18,6 @@ function ATask(props) {
                 <Box {...column}>
                     <Box {...row}>
                         <Box p={1}>
-                            <Checkbox checked={false} onChange={props.checkEvent}/>
-                        </Box>
-                        <Box p={1}>
                             <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
                         </Box>
                     </Box>
@@ -38,9 +35,6 @@ function ATask(props) {
             return ( 
                 <Box {...column}>
                     <Box {...row}>
-                        <Box p={1}>
-                            <Checkbox color="primary" checked={true}/>
-                        </Box>
                         <Box p={1}>
                             <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                         </Box>
