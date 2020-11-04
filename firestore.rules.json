@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+  	match /userTasks/{document=**} {
+    	allow create, update: if request.auth.uid != null
+      allow delete: if false
+    }
+  
+    match /userTasks/{userId}/{document=**} {
+      allow read, create, update: if request.auth.uid == userId
+      allow delete: if false
+    }
+    
+    match /archives/{userId}/{date} {
+      allow read, create, update: if request.auth.uid == userId
+      allow delete: if false
+      
+      match /{taskId}/{document=**} {
+      	allow delete, read, create, update: if request.auth.uid == userId
+      }
+    }
+    
+    match /wisequotes/{document=**} {
+    	allow read: if true
+      allow delete, create, update: if false 
+    }
+
+    match /countries/1/{document=**} {
+      allow read: if true
+      allow delete, create, update: if false
+    }
+
+    match /streamEvents/global/{document=**} {
+      allow read: if true
+      allow delete, create, update: if false
+    }
+
+    match /messages/{document=**} {
+      allow read, create, update: if true
+      allow delete: if false
+    }
+  }
+}

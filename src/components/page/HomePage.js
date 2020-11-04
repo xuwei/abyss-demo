@@ -4,6 +4,7 @@ import { Avatar, Hidden, Grid, Button, Paper, Typography, Box, Container } from 
 import { StaticImages, StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import { userContext } from '../context/UserContext'
 import CustomerFeedbacks from '../common/CustomerFeedbacks'
+import ReactPlayer from 'react-player'
 
 // home page
 function HomePage() {
@@ -95,6 +96,9 @@ function HomePage() {
                         </Paper>
                     </Grid>
                 </Grid>
+            </Box>
+            <Box px={0} py={LargePadding.PY}>
+                <ReactPlayer  width="100%" url="https://vimeo.com/475426154"/>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Hidden smDown>
