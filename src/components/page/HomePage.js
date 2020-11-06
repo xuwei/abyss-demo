@@ -128,7 +128,7 @@ function HomePage() {
                                 </Box>
                                 <Box py={LargePadding.PY}>
                                     <Typography color="primary" variant="h6">What's the difference between a bunch of other todo softwares?</Typography>
-                                    <Typography variant="h6">Our mission is to design software that is intentionally minimalistic. Our goal is to bring motivation and zen energy back to our users instead of being heavily functional.</Typography>
+                                    <Typography variant="h6">Our mission is to design software that is extremely minimalistic. Our goal is to bring back your motivation and zen energy.</Typography>
                                 </Box>
                                 <Box pb={LargePadding.PY}>
                                     <Typography color="primary" variant="h6">Is there going to be more features soon?</Typography>
