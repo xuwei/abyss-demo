@@ -4,7 +4,7 @@ import { Avatar, Hidden, Grid, Button, Paper, Typography, Box, Container } from 
 import { StaticImages, StaticRoutes, LargePadding, StandardPadding, ContentWidth } from '../Configs'
 import { userContext } from '../context/UserContext'
 import CustomerFeedbacks from '../common/CustomerFeedbacks'
-import ReactPlayer from 'react-player'
+import Vimeo from '@u-wave/react-vimeo'
 
 // home page
 function HomePage() {
@@ -97,8 +97,8 @@ function HomePage() {
                     </Grid>
                 </Grid>
             </Box>
-            <Box px={0} py={LargePadding.PY}>
-                <ReactPlayer  width="100%" url="https://vimeo.com/475426154"/>
+            <Box px={0} py={LargePadding.PY} align="center">
+                <Vimeo video="475747780" autoplay={false} mx="auto"/>
             </Box>
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Hidden smDown>
@@ -117,21 +117,21 @@ function HomePage() {
             <Box flexGrow={1} align="center" py={LargePadding.PY}>
                 <Grid item xs={ContentWidth.SM} md={ContentWidth.MD}>
                     <Typography variant="h2" color="primary">
-                        Features
+                        FAQ
                     </Typography>
                     <Box py={LargePadding.PY}>
                         <Paper variant="outlined">
                             <Box py={LargePadding.PY}>
-                                <Typography variant="h6">Built with Google Cloud</Typography>
+                                <Typography color="primary" variant="h6">Do you see my todo items in the back?</Typography>
+                                <Typography variant="h6">No. We have very strict protocol to protect our user's privacy and data is stored in encrypted format on our infrastructure.</Typography>
+                            </Box>
+                            <Box py={LargePadding.PY}>
+                                <Typography color="primary" variant="h6">What's the difference between a bunch of other todo softwares?</Typography>
+                                <Typography variant="h6">Our mission is to design software that is intentionally minimalistic. Our goal is to bring motivation and zen energy back to our users instead of being heavily functional.</Typography>
                             </Box>
                             <Box pb={LargePadding.PY}>
-                                <Typography variant="h6">Zero learning curve</Typography>
-                            </Box>
-                            <Box pb={LargePadding.PY}>
-                                <Typography variant="h6">Automatically encrypt your stored data</Typography>
-                            </Box>
-                            <Box pb={LargePadding.PY}>
-                                <Typography color="primary" variant="h6"><span style={{ textDecoration : 'line-through'}}>$47/yr</span> FREE - Limited Time !!!</Typography>
+                                <Typography color="primary" variant="h6">Is there going to be more features soon?</Typography>
+                                <Typography variant="h6">Yes. We are building collaboration features for our users in upcoming weeks.</Typography>
                             </Box>
                         </Paper>
                     </Box>
