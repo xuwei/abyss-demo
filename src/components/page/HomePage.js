@@ -121,6 +121,7 @@ function HomePage() {
                     </Typography>
                     <Box py={LargePadding.PY}>
                         <Paper variant="outlined">
+                            <Box px={LargePadding.PY}>
                             <Box py={LargePadding.PY}>
                                 <Typography color="primary" variant="h6">Do you see my todo items in the back?</Typography>
                                 <Typography variant="h6">No. We have very strict protocol to protect our user's privacy and data is stored in encrypted format on our infrastructure.</Typography>
@@ -131,7 +132,8 @@ function HomePage() {
                             </Box>
                             <Box pb={LargePadding.PY}>
                                 <Typography color="primary" variant="h6">Is there going to be more features soon?</Typography>
-                                <Typography variant="h6">Yes. We are building collaboration features for our users in upcoming weeks.</Typography>
+                                <Typography variant="h6">Yes. We are building outside-the-box features for our users in upcoming weeks. However, we are not going to build all the missing todo app features that's expected from a million other todo apps.</Typography>
+                            </Box>
                             </Box>
                         </Paper>
                     </Box>
