@@ -30,4 +30,5 @@ jobs:
       - name: firebase-deploy
         run: |
           sudo npm install -g --unsafe-perm=true firebase-tools
+          sudo npm install -g eslint
           firebase deploy --token ${{secrets.ABYSS_FIREBASE_TOKEN}} 
