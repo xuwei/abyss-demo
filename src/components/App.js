@@ -18,6 +18,7 @@ import ArchivePage from './page/ArchivePage';
 import { hotjar } from 'react-hotjar'
 import { DefaultTheme } from './style/CommonStyle'
 import LinkAccountPage from './page/LinkAccountPage';
+import FAQPage from './page/FAQPage';
 
 function App() {
   var defaultTheme = DefaultTheme
@@ -38,6 +39,7 @@ function App() {
             <Route exact path="/stream" component={StreamPage}/>
             <Route exact path="/archive" component={ArchivePage}/>
             <Route exact path="/team" component={TeamPage}/>
+            <Route exact path="/faq" component={FAQPage}/>
             <Route exact path="/privacy" component={PrivacyPage}/>
             <Route exact path="/terms" component={TermsAndServicesPage}/>
             <Route exact path="/404" component={NotFoundPage}/>

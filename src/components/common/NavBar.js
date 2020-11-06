@@ -63,6 +63,11 @@ function NavBar() {
                                 Archive
                             </Link>
                         </MenuItem>
+                        <MenuItem onClick={handleMenuDismiss}>
+                            <Link href="/faq" color="textPrimary">
+                                FAQ
+                            </Link>
+                        </MenuItem>
                     </Menu>
                     :
                     <Menu id="quickMenu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuDismiss}>
