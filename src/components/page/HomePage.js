@@ -122,18 +122,25 @@ function HomePage() {
                     <Box py={LargePadding.PY}>
                         <Paper variant="outlined">
                             <Box px={LargePadding.PY}>
-                            <Box py={LargePadding.PY}>
-                                <Typography color="primary" variant="h6">Do you see my todo items in the back?</Typography>
-                                <Typography variant="h6">No. We have very strict protocol to protect our user's privacy and data is stored in encrypted format on our infrastructure.</Typography>
-                            </Box>
-                            <Box py={LargePadding.PY}>
-                                <Typography color="primary" variant="h6">What's the difference between a bunch of other todo softwares?</Typography>
-                                <Typography variant="h6">Our mission is to design software that is intentionally minimalistic. Our goal is to bring motivation and zen energy back to our users instead of being heavily functional.</Typography>
-                            </Box>
-                            <Box pb={LargePadding.PY}>
-                                <Typography color="primary" variant="h6">Is there going to be more features soon?</Typography>
-                                <Typography variant="h6">Yes. We are building outside-the-box features for our users in upcoming weeks. However, we are not going to build all the missing todo app features that's expected from a million other todo apps.</Typography>
-                            </Box>
+                                <Box py={LargePadding.PY}>
+                                    <Typography color="primary" variant="h6">Do you see my todo items in the background?</Typography>
+                                    <Typography variant="h6">No. We have very strict protocol to protect our user's privacy and data is stored in encrypted format on our infrastructure. Your todo items will never be visible to anyone.</Typography>
+                                </Box>
+                                <Box py={LargePadding.PY}>
+                                    <Typography color="primary" variant="h6">What's the difference between a bunch of other todo softwares?</Typography>
+                                    <Typography variant="h6">Our mission is to design software that is intentionally minimalistic. Our goal is to bring motivation and zen energy back to our users instead of being heavily functional.</Typography>
+                                </Box>
+                                <Box pb={LargePadding.PY}>
+                                    <Typography color="primary" variant="h6">Is there going to be more features soon?</Typography>
+                                    <Typography variant="h6">Yes. We are building outside-the-box features for our users in upcoming weeks. However, we are not going to build all the missing todo app features that's exists in a million other todo apps.</Typography>
+                                </Box>
+                                <Box pb={LargePadding.PY}>
+                                    <Typography color="primary" variant="h6">Is there going to be a mobile app?</Typography>
+                                    <Typography variant="h6">Not right now. However you can install todocloud as a PWA app on you phone following the video below.</Typography>
+                                </Box>
+                                <Box pb={LargePadding.PY}>
+                                    <Vimeo video="476199642" autoplay={false} mx="auto"/>
+                                </Box>
                             </Box>
                         </Paper>
                     </Box>
