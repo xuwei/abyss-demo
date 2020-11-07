@@ -1,8 +1,15 @@
 import Moment from 'moment';
 import { DateFormat } from '../Configs'
 import { extendMoment } from 'moment-range';
+import RandomUtil from './RandomUtil'
 const moment = extendMoment(Moment);
 
+const subtractRandomMinsFromNow = ()=> {
+    const RANGE = 360
+    const randomMins = RandomUtil.randomIndexByRange(RANGE)
+    const randomMinsFromNow = moment().subtract(randomMins, "minutes")
+    return randomMinsFromNow
+}
 
 const yyyyMMdd = (date)=> {
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + ("0" + date.getDate()).slice(-2)
@@ -39,4 +46,4 @@ const last21days = ()=> {
     return datesByRange(start, end)
 }
 
-export default { yyyyMMdd, datesByRange, last7days, last14days, last21days }
+export default { yyyyMMdd, datesByRange, last7days, last14days, last21days, subtractRandomMinsFromNow }
