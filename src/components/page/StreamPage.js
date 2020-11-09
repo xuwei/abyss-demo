@@ -1,42 +1,43 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
-import { dialogContext } from '../context/DialogContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Box, Paper, Container, Typography } from '@material-ui/core'
+import { Tabs, Tab, Box, Paper, Container, Typography } from '@material-ui/core'
 import { StandardPadding, LargePadding, ContentWidth, StaticRoutes } from '../Configs'
 import StreamService from '../service/StreamService'
 import StreamEvent from '../common/StreamEvent'
+import { StreamFilter } from '../model/StreamEventModel'
 import LoginPanel from '../common/LoginPanel'
 
 // archive page
 function StreamPage() {
 
+    const [streamFilter, setStreamFilter] = useState(StreamFilter.GLOBAL_STREAM)
     const [stream, setStream] = useState([])
     const [notFound, setNotFound] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
-    const dialogManager = useContext(dialogContext)
+
+    const handleStreamFilterUpdate = ()=> {
+
+    }
 
     useEffect(()=>{
-        
-        const fetchStream = ()=>{
+        const fetchStream = () => {
             if (userManager.user === null) return
             setLoading(true)
-            StreamService.getStream((stream)=>{
-                setStream(stream)
+            StreamService.getStream().then((result)=>{
+                setStream(result)
             }).catch((error)=>{
-                // redirect to error page
-                console.log(error)
                 setNotFound(true)
             }).finally(()=>{
                 setLoading(false)
             })
         }
         fetchStream()
-    },[setStream, userManager, setLoading, setNotFound])
+    },[userManager, setLoading, setNotFound])
 
     useEffect(() => {
         loadingManager.updateLoadingIndicator(loading)
@@ -54,6 +55,19 @@ function StreamPage() {
                     <Typography variant="h2" color="primary" mx="auto" >
                         Stream
                     </Typography>
+                </Box>
+                <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                    <Tabs
+                        value={streamFilter}
+                        onChange={handleStreamFilterUpdate}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
+                    >
+                        <Tab value={StreamFilter.GLOBAL_STREAM} label="Global" />
+                        <Tab value={StreamFilter.MY_STREAM} label="Friends" />
+                        <Tab value={StreamFilter.TEAM_STREAM} label="Team" />
+                    </Tabs>
                 </Box>
                 <Box flexGrow={1} align="center" pt={StandardPadding.PY} pb={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>

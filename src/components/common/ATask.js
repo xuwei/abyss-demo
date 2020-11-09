@@ -18,7 +18,7 @@ function ATask(props) {
                 <Box {...column}>
                     <Box {...row}>
                         <Box p={1}>
-                            <Typography  variant="h4" color="primary">{model.descriptions}</Typography>
+                            <Typography  align="left" variant="h4" color="primary">{model.descriptions}</Typography>
                         </Box>
                     </Box>
                     <Box {...row} justifyContent="flex-end">
@@ -36,7 +36,7 @@ function ATask(props) {
                 <Box {...column}>
                     <Box {...row}>
                         <Box p={1}>
-                            <Typography variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
+                            <Typography align="left" variant="h4" style={{textDecoration : "line-through"}}>{model.descriptions}</Typography>
                         </Box>
                     </Box>
                     <Box {...row} justifyContent="flex-end">

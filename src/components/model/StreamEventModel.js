@@ -1,3 +1,9 @@
+const StreamFilter = {
+    GLOBAL_STREAM : 'GlobalStream', 
+    MY_STREAM : 'MyStream',
+    TEAM_STREAM : 'TeamStream'
+}
+
 const StreamEventType = {
     CreatedTask : 'CreatedTask',
     CompletedTask : 'CompletedTask',
@@ -22,4 +28,4 @@ class StreamEventModel {
 }
 
 export default StreamEventModel
-export { StreamEventType }
+export { StreamEventType, StreamFilter }
