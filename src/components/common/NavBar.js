@@ -1,13 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { LinearProgress, Link, Menu, MenuItem, Box, Button, Typography, Toolbar, AppBar } from '@material-ui/core'
+import { LinearProgress, Link, Menu, MenuItem, Box, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import UserService, { ProviderType } from '../service/UserService'
 import { userContext }  from '../context/UserContext'
 import { loadingContext } from '../context/LoadingContext'
-import { reactLocalStorage } from 'reactjs-localstorage'
-import { StaticRoutes } from '../Configs';
-import LinkIcon from '@material-ui/icons/Link';
+import { column } from '../style/CommonStyle';
 
 function NavBar() {
     const history = useHistory()
@@ -22,16 +20,6 @@ function NavBar() {
 
     const handleMenuDismiss = () => {
         setAnchorEl(null)
-    }
-
-    const logout = () => {
-        UserService.logout().then(()=> {
-            userManager.updateUser(null)
-            setProvider(null)
-            reactLocalStorage.clear()
-        }).finally(()=>{
-            history.push(StaticRoutes.HOME)
-        })
     }
 
     useEffect(()=>{
@@ -68,6 +56,11 @@ function NavBar() {
                                 FAQ
                             </Link>
                         </MenuItem>
+                        <MenuItem onClick={handleMenuDismiss}>
+                            <Link href="/setting" color="textPrimary">
+                                Setting
+                            </Link>
+                        </MenuItem>
                     </Menu>
                     :
                     <Menu id="quickMenu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuDismiss}>
@@ -94,25 +87,16 @@ function NavBar() {
                     <div>
                     {
                         provider !== ProviderType.GUEST ?
-                        <Box>
-                            <Typography variant="caption">
-                                {userManager.user.displayName ? userManager.user.displayName : "Guest"}
-                            </Typography>
-                            <Button size="small" varianet="contained" onClick={logout}>
-                                Sign out
-                            </Button>
+                        <Box {...column}>
+                            <Box p={1}>
+                                <Avatar alt={userManager.user.displayName} src={userManager.user.photoURL}/>
+                            </Box>
                         </Box>
                         :
-                        <Box>
-                            <Typography variant="caption">
-                                {userManager.user.displayName ? userManager.user.displayName : "Guest"}
-                            </Typography>
-                            <Link href={StaticRoutes.LINK_ACCOUNT} style={{verticalAlign: "middle"}}>
-                                <LinkIcon fontSize="large"/>
-                            </Link>
-                            <Button size="small" varianet="contained" onClick={logout}>
-                                Sign out
-                            </Button>
+                        <Box {...column}>
+                            <Box p={1}>
+                                <Avatar alt="guest" src=""/>
+                            </Box>
                         </Box>
                     }
                     </div>

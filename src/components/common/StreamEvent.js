@@ -1,10 +1,7 @@
 import React from 'react'
 import { IconButton, Avatar, Box, Typography } from '@material-ui/core'
-import { DefaultIconFontSize, BorderStyle, row, column } from '../style/CommonStyle'
+import { BorderStyle, row, column } from '../style/CommonStyle'
 import { StandardPadding } from '../Configs'
-import EditIcon from '@material-ui/icons/Edit'
-import DoneIcon from '@material-ui/icons/Done'
-import ArchiveIcon from '@material-ui/icons/Archive'
 
 function StreamEvent(props) {
 
@@ -27,7 +24,7 @@ function StreamEvent(props) {
             </Box>
             <Box {...row} justifyContent="flex-end">
                 <Box p={1}>
-                    <IconButton size="small" onClick={props.startEdit}>&#128079;&nbsp;56</IconButton>
+                    <IconButton size="small" onClick={props.startEdit}><span role="img" aria-label="clap">&#128079;</span>&nbsp;56</IconButton>
                 </Box>
             </Box>
         </Box>

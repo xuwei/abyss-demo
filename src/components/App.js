@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -8,17 +8,18 @@ import HomePage from './page/HomePage'
 import TeamPage from './page/TeamPage'
 import TodoPage from './page/TodoPage'
 import StreamPage from './page/StreamPage'
-import PrivacyPage from './page/PrivacyPage';
-import TermsAndServicesPage from './page/TermsAndServicesPage';
+import PrivacyPage from './page/PrivacyPage'
+import TermsAndServicesPage from './page/TermsAndServicesPage'
 import NotFoundPage from './page/NotFoundPage'
 import AppDialog from './AppDialog'
 import Auth from './Auth'
 import LoadingIndicator from './LoadingIndicator'
-import ArchivePage from './page/ArchivePage';
+import ArchivePage from './page/ArchivePage'
 import { hotjar } from 'react-hotjar'
 import { DefaultTheme } from './style/CommonStyle'
-import LinkAccountPage from './page/LinkAccountPage';
-import FAQPage from './page/FAQPage';
+import LinkAccountPage from './page/LinkAccountPage'
+import FAQPage from './page/FAQPage'
+import SettingPage from './page/SettingPage'
 
 function App() {
   var defaultTheme = DefaultTheme
@@ -44,6 +45,7 @@ function App() {
             <Route exact path="/terms" component={TermsAndServicesPage}/>
             <Route exact path="/404" component={NotFoundPage}/>
             <Route exact path="/linkAccount" component={LinkAccountPage}/>
+            <Route exact path="/setting" component={SettingPage}/>
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />
