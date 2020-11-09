@@ -1,6 +1,6 @@
-import Moment from 'moment';
+import Moment from 'moment'
 import { DateFormat } from '../Configs'
-import { extendMoment } from 'moment-range';
+import { extendMoment } from 'moment-range'
 import RandomUtil from './RandomUtil'
 const moment = extendMoment(Moment);
 

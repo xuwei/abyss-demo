@@ -1,10 +1,35 @@
-import StreamEventModel, { StreamEventType } from '../model/StreamEventModel'
+import StreamEventModel, { StreamEventType, StreamFilter } from '../model/StreamEventModel'
 import firebase from '../../Firebase.js'
 import RandomUtil from '../util/RandomUtil'
 import DateUtil from '../util/DateUtil'
 import uuid from 'react-uuid'
 
-const getStream = ()=> {
+const getStream = (filter) =>{
+    switch(filter) {
+        case StreamFilter.GLOBAL_STREAM:
+            return getGlobalStream()
+        case StreamFilter.FRIENDS_STREAM:
+            return getFriendsStream()
+        case StreamFilter.TEAM_STREAM:
+            return getTeamStream()
+        default: 
+            break
+    }
+}
+
+const getTeamStream = () => {
+    return new Promise((resolve, reject)=>{
+         resolve([])
+    })
+}
+
+const getFriendsStream = () => {
+    return new Promise((resolve, reject)=>{
+        resolve([])
+    })
+}
+
+const getGlobalStream = () => {
 
     return new Promise((resolve, reject)=>{
 
@@ -24,7 +49,8 @@ const getStream = ()=> {
                         const streamEventModel = new StreamEventModel(uuid(),
                                                     randomEventType,
                                                     uuid(),
-                                                    data.avatarUrl, "",
+                                                    data.avatarUrl, 
+                                                    "",
                                                     data.username, 
                                                     randTime,
                                                     generateTaskDescription(data.username, randomEventType))
@@ -39,7 +65,7 @@ const getStream = ()=> {
             }) 
         }
 
-        const RECENT_STREAM_LENGTH = 200
+        const RECENT_STREAM_LENGTH = 50
         var promises = []
         for (var i = 0; i < RECENT_STREAM_LENGTH; i++) {
             const promise = generateRandomBotStreamEvent() 

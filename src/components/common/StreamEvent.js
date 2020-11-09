@@ -8,13 +8,13 @@ function StreamEvent(props) {
     const model = props.model
 
     return (
-        <Box {...column} borderBottom={BorderStyle}>
+        <Box {...column} borderBottom={BorderStyle} px={StandardPadding.PX}>
             <Box p={1} pt={StandardPadding.PX} {...row}>
                 <Box flexGrow={1} align="left">
                     <Avatar alt={model.displayName} src={model.avatarUrl}/>
                 </Box>
                 <Box>
-                    <Typography variant="body1">5mins ago</Typography>
+                    <Typography variant="body1">{model.timeAgo}</Typography>
                 </Box>
             </Box>
             <Box p={1} pt={StandardPadding.PX} {...row}>
@@ -23,8 +23,11 @@ function StreamEvent(props) {
                 </Box>
             </Box>
             <Box {...row} justifyContent="flex-end">
-                <Box p={1}>
-                    <IconButton size="small" onClick={props.startEdit}><span role="img" aria-label="clap">&#128079;</span>&nbsp;56</IconButton>
+                <Box p={1}  my="auto">
+                    <IconButton size="small" onClick={props.startEdit}><span role="img" aria-label="clap">&#128079;</span></IconButton>
+                </Box>
+                <Box p={1} my="auto">
+                    <Typography style={{ verticalAlign: "baseline"}} align="left" variant="body2">56</Typography>
                 </Box>
             </Box>
         </Box>

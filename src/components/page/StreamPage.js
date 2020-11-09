@@ -8,6 +8,8 @@ import StreamService from '../service/StreamService'
 import StreamEvent from '../common/StreamEvent'
 import { StreamFilter } from '../model/StreamEventModel'
 import LoginPanel from '../common/LoginPanel'
+import Rewards from '../common/Rewards'
+import Moment from 'moment'
 
 // archive page
 function StreamPage() {
@@ -20,16 +22,25 @@ function StreamPage() {
     const loadingManager = useContext(loadingContext)
     const userManager = useContext(userContext)
 
-    const handleStreamFilterUpdate = ()=> {
-
+    const handleStreamFilterUpdate = (e, filterValue)=> {
+        setStreamFilter(filterValue)
     }
 
     useEffect(()=>{
         const fetchStream = () => {
             if (userManager.user === null) return
             setLoading(true)
-            StreamService.getStream().then((result)=>{
-                setStream(result)
+            StreamService.getStream(streamFilter).then((result)=>{
+                result.sort(function(event1, event2) {
+                    return event2.created - event1.created
+                })
+
+                var processedList = result.map(event => {
+                    event.timeAgo = Moment(event.created).fromNow()
+                    return event
+                })
+
+                setStream(processedList)
             }).catch((error)=>{
                 setNotFound(true)
             }).finally(()=>{
@@ -37,7 +48,7 @@ function StreamPage() {
             })
         }
         fetchStream()
-    },[userManager, setLoading, setNotFound])
+    },[userManager, streamFilter, setLoading, setNotFound])
 
     useEffect(() => {
         loadingManager.updateLoadingIndicator(loading)
@@ -57,6 +68,9 @@ function StreamPage() {
                     </Typography>
                 </Box>
                 <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                    <Rewards/>
+                </Box>
+                <Box flexGrow={1} align="center" pb={LargePadding.PY}>
                     <Tabs
                         value={streamFilter}
                         onChange={handleStreamFilterUpdate}
@@ -65,7 +79,7 @@ function StreamPage() {
                         centered
                     >
                         <Tab value={StreamFilter.GLOBAL_STREAM} label="Global" />
-                        <Tab value={StreamFilter.MY_STREAM} label="Friends" />
+                        <Tab value={StreamFilter.FRIENDS_STREAM} label="Friends" />
                         <Tab value={StreamFilter.TEAM_STREAM} label="Team" />
                     </Tabs>
                 </Box>

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
 import { LinearProgress, Link, Menu, MenuItem, Box, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import UserService, { ProviderType } from '../service/UserService'
@@ -8,7 +7,6 @@ import { loadingContext } from '../context/LoadingContext'
 import { column } from '../style/CommonStyle';
 
 function NavBar() {
-    const history = useHistory()
     const userManager = useContext(userContext)
     const loadingManager = useContext(loadingContext)
     const [anchorEl, setAnchorEl] = useState(null)

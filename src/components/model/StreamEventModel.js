@@ -1,6 +1,6 @@
 const StreamFilter = {
     GLOBAL_STREAM : 'GlobalStream', 
-    MY_STREAM : 'MyStream',
+    FRIENDS_STREAM : 'FriendsStream',
     TEAM_STREAM : 'TeamStream'
 }
 
@@ -23,6 +23,7 @@ class StreamEventModel {
         this.displayName = displayName
         this.created = created
         this.descriptions = descriptions
+        this.timeAgo = ""
         this.claps = 0
     }
 }
