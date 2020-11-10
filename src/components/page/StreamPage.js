@@ -5,6 +5,7 @@ import { loadingContext } from '../context/LoadingContext'
 import { Tabs, Tab, Box, Paper, Container, Typography } from '@material-ui/core'
 import { StandardPadding, LargePadding, ContentWidth, StaticRoutes } from '../Configs'
 import StreamService from '../service/StreamService'
+import RewardService from '../service/RewardService'
 import StreamEvent from '../common/StreamEvent'
 import { StreamFilter } from '../model/StreamEventModel'
 import LoginPanel from '../common/LoginPanel'
@@ -16,6 +17,7 @@ function StreamPage() {
 
     const [streamFilter, setStreamFilter] = useState(StreamFilter.GLOBAL_STREAM)
     const [stream, setStream] = useState([])
+    const [reward, setReward] = useState(null)
     const [notFound, setNotFound] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -27,6 +29,17 @@ function StreamPage() {
     }
 
     useEffect(()=>{
+
+        const fetchRewards = () => {
+            if (userManager.user === null) return
+            if (userManager.user.uid === null) return
+            RewardService.getReward(userManager.user.uid).then((rewardModel)=>{
+                setReward(rewardModel)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
+
         const fetchStream = () => {
             if (userManager.user === null) return
             setLoading(true)
@@ -47,8 +60,9 @@ function StreamPage() {
                 setLoading(false)
             })
         }
+        fetchRewards()
         fetchStream()
-    },[userManager, streamFilter, setLoading, setNotFound])
+    },[userManager, streamFilter, setLoading, setNotFound, setReward])
 
     useEffect(() => {
         loadingManager.updateLoadingIndicator(loading)
@@ -67,9 +81,11 @@ function StreamPage() {
                         Stream
                     </Typography>
                 </Box>
-                <Box flexGrow={1} align="center" pb={LargePadding.PY}>
-                    <Rewards/>
-                </Box>
+                { reward && 
+                    <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                        <Rewards model={reward}/> 
+                    </Box>
+                 }
                 <Box flexGrow={1} align="center" pb={LargePadding.PY}>
                     <Tabs
                         value={streamFilter}

@@ -2,6 +2,7 @@ import React from 'react'
 import { IconButton, Avatar, Box, Typography } from '@material-ui/core'
 import { BorderStyle, row, column } from '../style/CommonStyle'
 import { StandardPadding } from '../Configs'
+import Clap from './Clap'
 
 function StreamEvent(props) {
 
@@ -24,10 +25,10 @@ function StreamEvent(props) {
             </Box>
             <Box {...row} justifyContent="flex-end">
                 <Box p={1}  my="auto">
-                    <IconButton size="small" onClick={props.startEdit}><span role="img" aria-label="clap">&#128079;</span></IconButton>
+                    <IconButton size="small" onClick={props.startEdit}><Clap /></IconButton>
                 </Box>
                 <Box p={1} my="auto">
-                    <Typography style={{ verticalAlign: "baseline"}} align="left" variant="body2">56</Typography>
+                    <Typography style={{ verticalAlign: "baseline"}} align="left" variant="body2">{model.claps}</Typography>
                 </Box>
             </Box>
         </Box>
