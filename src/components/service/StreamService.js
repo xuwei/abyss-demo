@@ -54,7 +54,8 @@ const getGlobalStream = () => {
                                                     data.username, 
                                                     randTime,
                                                     generateTaskDescription(data.username, randomEventType))
-                                                    
+                        
+                        streamEventModel.claps = RandomUtil.randomIndexByRange(100)                          
                         res(streamEventModel)
                     } else {
                         rej(new Error("Todobots not found"))
