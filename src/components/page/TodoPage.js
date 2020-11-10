@@ -144,12 +144,22 @@ function TodoPage() {
 
     useEffect(() => {
 
+        const fetchWiseQuote = () => {
+            WiseQuotesService.getWiseQuote().then((quoteModel)=>{
+                setQuote(quoteModel)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
+
         const fetchData = () => {
             if (userManager.user === null) return
             setLoading(true)
             TaskService.getUserTasks(userManager.user.uid)
             .then((result) => {
                 setTasks(result)
+            }).then(()=>{
+                fetchWiseQuote()
             }).catch((error) => {
                 // redirect to error page
                 console.log(error)
@@ -159,16 +169,7 @@ function TodoPage() {
             })
         }
 
-        const fetchWiseQuote = () => {
-            WiseQuotesService.getWiseQuote().then((quoteModel)=>{
-                setQuote(quoteModel)
-            }).catch((error)=>{
-                console.log(error)
-            })
-        }
-
         fetchData()
-        fetchWiseQuote()
     }, [userManager, setLoading, setNotFound, setTasks, setQuote])
 
     // this triggers refresh when shapes is updated

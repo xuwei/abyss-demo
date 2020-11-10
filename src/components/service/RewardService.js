@@ -15,15 +15,12 @@ const getReward = (userId) => {
                 // transform to pure JS object
                 const rewardObj = Object.assign({}, newReward)
                 db.collection("rewards").doc(userId).set(rewardObj, { merge: true }).then(()=>{
-                    debugger;
                     resolve(newReward)
                 }).catch((err)=>{
-                    debugger;
                     reject(err)
                 })
             }
         }).catch((error) => {
-            debugger;
             reject(error)
         })
     })
