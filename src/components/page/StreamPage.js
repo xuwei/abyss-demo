@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from "react-router-dom"
 import { userContext } from '../context/UserContext'
 import { loadingContext } from '../context/LoadingContext'
-import { Tabs, Tab, Box, Paper, Container, Typography } from '@material-ui/core'
+import { Box, Paper, Container, Typography } from '@material-ui/core'
 import { StandardPadding, LargePadding, ContentWidth, StaticRoutes } from '../Configs'
 import StreamService from '../service/StreamService'
 import RewardService from '../service/RewardService'
@@ -10,6 +10,7 @@ import StreamEvent from '../common/StreamEvent'
 import { StreamFilter } from '../model/StreamEventModel'
 import LoginPanel from '../common/LoginPanel'
 import Rewards from '../common/Rewards'
+import StreamFilterTab from '../common/StreamFilterTab'
 import Moment from 'moment'
 
 // archive page
@@ -69,6 +70,34 @@ function StreamPage() {
     }, [loading, loadingManager])
 
     if (notFound) return (<Redirect to={StaticRoutes.NOT_FOUND}/>)
+    if (streamFilter === StreamFilter.FRIENDS_STREAM || streamFilter === StreamFilter.TEAM_STREAM) {
+        return (
+            <Container>
+                <Box flexGrow={1} align="center" py={StandardPadding.PY}>
+                    <Box flexGrow={1} align="center" pt={LargePadding.PY} pb={StandardPadding.PY}>
+                        <Typography variant="h2" color="primary" mx="auto" >
+                            Stream
+                        </Typography>
+                    </Box>
+                    { reward && 
+                    <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                        <Rewards model={reward}/> 
+                    </Box>
+                    }
+                    <Box flexGrow={1} align="center" pb={LargePadding.PY}>
+                        <StreamFilterTab onChange={handleStreamFilterUpdate} filterValue={streamFilter}/>
+                    </Box>
+                    <Box flexGrow={1} align="center" pt={StandardPadding.PY} pb={LargePadding.PY}>
+                        <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
+                            <Box py={StandardPadding.PY} px={StandardPadding.PX}>
+                                <Typography variant="h6">coming soon...</Typography>
+                            </Box>
+                        </Paper>
+                    </Box>
+                </Box>
+            </Container>
+        )
+    }
     return (
         <Container>
             <Box flexGrow={1} align="center" py={StandardPadding.PY}>
@@ -87,17 +116,7 @@ function StreamPage() {
                     </Box>
                  }
                 <Box flexGrow={1} align="center" pb={LargePadding.PY}>
-                    <Tabs
-                        value={streamFilter}
-                        onChange={handleStreamFilterUpdate}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        centered
-                    >
-                        <Tab value={StreamFilter.GLOBAL_STREAM} label="Global" />
-                        <Tab value={StreamFilter.FRIENDS_STREAM} label="Friends" />
-                        <Tab value={StreamFilter.TEAM_STREAM} label="Team" />
-                    </Tabs>
+                    <StreamFilterTab onChange={handleStreamFilterUpdate} filterValue={streamFilter}/>
                 </Box>
                 <Box flexGrow={1} align="center" pt={StandardPadding.PY} pb={LargePadding.PY}>
                     <Paper xs={ContentWidth.SM} md={ContentWidth.MD}>
