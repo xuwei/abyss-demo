@@ -1,4 +1,4 @@
-import BiosModel from 'BiosModel'
+import BiosModel from '../model/BiosModel'
 import firebase from '../../Firebase.js'
 
 const getBios = (user) => {
@@ -18,7 +18,7 @@ const getBios = (user) => {
                 // transform to pure JS object
                 const newBiosObj = Object.assign({}, newBios)
                 db.collection("bios").doc(userId).set(newBiosObj, { merge: true }).then(()=>{
-                    resolve(newReward)
+                    resolve(newBios)
                 }).catch((err)=>{
                     reject(err)
                 })
@@ -29,9 +29,10 @@ const getBios = (user) => {
     })
 }
 
-const updateBios = (updatedBios) => {
+const updateBios = (userId, updatedBios) => {
     return new Promise((resolve, reject) => {
         const newBiosObj = Object.assign({}, updatedBios)
+        const db = firebase.firestore()
         db.collection("bios").doc(userId).set(newBiosObj, { merge: true }).then(()=>{
             resolve(updatedBios)
         }).catch((err)=>{

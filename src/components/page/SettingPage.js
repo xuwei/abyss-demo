@@ -12,6 +12,7 @@ import DialogModel from '../model/DialogModel'
 import RewardService from '../service/RewardService'
 import Rewards from '../common/Rewards'
 import Bios from '../common/Bios'
+import BiosService from '../service/BiosService';
 
 function SettingPage() {
 
@@ -25,7 +26,7 @@ function SettingPage() {
 
     const logout = () => {
 
-        const dialog = new DialogModel("Message", "Logging out?", "Ok", "Cancel")
+        const dialog = new DialogModel("Message", "Are you sure of logging out?", "Ok", "Cancel")
         dialog.callback = ()=> { 
             UserService.logout().then(()=> {
                 userManager.updateUser(null)
@@ -48,7 +49,20 @@ function SettingPage() {
                 console.log(error)
             })
         }
+
+        const fetchBios = () => {
+            if (userManager.user === null) return
+            if (userManager.user.uid === null) return
+            BiosService.getBios(userManager.user).then((biosModel)=>{
+                debugger;
+                setBios(biosModel)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
+
         fetchRewards() 
+        fetchBios()
     }, [userManager, setLoading, setReward])
 
     useEffect(() => {
