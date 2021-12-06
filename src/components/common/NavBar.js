@@ -53,11 +53,11 @@ function NavBar() {
                                 Todo
                             </Link>
                         </MenuItem>
-                        <MenuItem onClick={handleMenuDismiss}>
+                        {/* <MenuItem onClick={handleMenuDismiss}>
                             <Link href="/stream" color="textPrimary">
                                 Stream
                             </Link>
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem onClick={handleMenuDismiss}>
                             <Link href="/archive" color="textPrimary">
                                 Archive
