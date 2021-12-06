@@ -5,7 +5,7 @@ import { LargePadding, StandardPadding, StaticRoutes } from '../Configs'
 function Footer() {
     return (
     <Box>
-        <Box mx="auto" flexGrow={1} align="center" pt={LargePadding.PY}>
+        {/* <Box mx="auto" flexGrow={1} align="center" pt={LargePadding.PY}>
             <Typography variant="caption" color="textPrimary" mx="auto">
                 <Link href={StaticRoutes.CONTACT_EMAIL}>Contact</Link> | <Link href="/terms">Terms and Conditions</Link> | <Link href="/privacy">Privacy</Link>
             </Typography>
@@ -18,7 +18,7 @@ function Footer() {
         </Box>
         <Box mx="auto" flexGrow={1} align="center" pt={0} pb={LargePadding.PY}>
         <Typography variant="caption" color="textPrimary" mx="auto"></Typography>
-        </Box>
+        </Box> */}
     </Box>
     )
 }
